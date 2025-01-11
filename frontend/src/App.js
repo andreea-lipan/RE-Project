@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {InternshipsPage} from "./pages/internships/InternshipsPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -18,13 +17,13 @@ function App() {
             <Route path="/" element={<LoginPage/>}/>
 
             {/*student content*/}
-            <Route path='/students' element={<CustomRoute roles={['ROLE_STUDENT']}/>}>
+            <Route path='/students' element={<CustomRoute roles={['STUDENT']}/>}>
                 <Route path="internships" element={<InternshipsPage/>}/>
                 <Route path="dashboard" element={<StudentDashboardPage/>}/>
             </Route>
 
             {/*company content*/}
-            <Route path='/company' element={<CustomRoute roles={['ROLE_COMPANY']}/>}>
+            <Route path='/company' element={<CustomRoute roles={['COMPANY']}/>}>
                 <Route path="dashboard" element={<CompanyDashboardPage/>}/>
             </Route>
 

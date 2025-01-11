@@ -1,12 +1,13 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
+import Storage from './Storage';
 
 export const CustomRoute = ({  roles }) => {
-    const isLoggedIn = true
-    const currentUser = {name:"Ana",role:'ROLE_STUDENT'}
+    const isLoggedIn = !!Storage.getUserId();
+    const currentUserRole = Storage.getUserRole();
 
     // Check if the user is logged in and has the required role
-    const hasRequiredRole = isLoggedIn && roles.some((role) => currentUser.role===role);
+    const hasRequiredRole = isLoggedIn && roles.some((role) => currentUserRole===role);
 
     return hasRequiredRole ? <Outlet/> : <Navigate to="/"/>;
 };

@@ -7,3 +7,7 @@ export const INTERNSHIPS_ENDPOINTS = {
     INTERNSHIP_BY_ID: (id) => `${BASE_URL}/internships/${id}`,
     ADD_INTERNSHIP: `${BASE_URL}/internships`
 }
+
+export const AUTH_ENDPOINTS = {
+    LOGIN: `${BASE_URL}/auth/login`
+}

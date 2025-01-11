@@ -16,7 +16,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public void populate(){
-        for(int i=1;i<=10;i++){
+        for(int i = 1; i <= 10; i++){
             Internship internship = new Internship("Internship" + i);
             internshipRepository.save(internship);
         }

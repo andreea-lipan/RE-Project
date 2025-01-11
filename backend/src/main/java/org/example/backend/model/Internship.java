@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.sql.Date;
 
+@Setter
+@Getter
 @Data
 @AllArgsConstructor
 @Entity
@@ -60,51 +62,4 @@ public class Internship {
         this.salary = salary;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String length() {return length;}
-
-    public void setLength(String length) {this.length = length;}
-
-    public String worktype() {return worktype;}
-
-    public void setWorktype(String worktype) {this.worktype = worktype;}
-
-    public Date deadline() {return deadline;}
-
-    public void setDeadline(Date deadline) {this.deadline = deadline;}
-
-    public String location() {return location;}
-
-    public void setLocation(String location) {this.location = location;}
-
-    public String description() {return description;}
-
-    public void setDescription(String description) {this.description = description;}
-
-    public String steps() {return steps;}
-
-    public void setSteps(String steps) {this.steps = steps;}
-
-    public String skills() {return skills;}
-
-    public void setSkills(String skills) {this.skills = skills;}
-
-    public String salary() {return salary;}
-
-    public void setSalary(String salary) {this.salary = salary;}
 }

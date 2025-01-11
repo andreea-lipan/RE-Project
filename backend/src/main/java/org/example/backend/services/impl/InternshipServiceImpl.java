@@ -23,6 +23,11 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    public void addInternship(Internship internship) {
+        internshipRepository.save(internship);
+    }
+
+    @Override
     public List<Internship> getAllInternships() {
         return internshipRepository.findAll();
     }

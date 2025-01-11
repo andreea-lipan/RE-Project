@@ -35,4 +35,14 @@ public class InternshipController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping
+    public ResponseEntity<?> addInternship(@RequestBody Internship internship) {
+        try {
+            internshipService.addInternship(internship);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

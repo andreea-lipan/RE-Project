@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface InternshipService {
     void populate();
+    void addInternship(Internship internship);
     List<Internship> getAllInternships();
 }

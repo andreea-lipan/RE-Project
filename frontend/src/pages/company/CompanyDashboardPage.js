@@ -1,5 +1,5 @@
 import {Grid2, Paper} from "@mui/material";
-import {CompanyNavbar} from "../navbars/CompanyNavbar";
+import {CompanyNavbar} from "./CompanyNavbar";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {COMPANY_INTERNSHIPS, COMPANY_NEW_INTERNSHIP, COMPANY_PAGE} from "../../utils/URLconstants";

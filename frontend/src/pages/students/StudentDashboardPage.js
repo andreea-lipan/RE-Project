@@ -1,11 +1,11 @@
-import {StudentsNavbar} from "../navbars/StudentsNavbar";
+import {StudentNavbar} from "./StudentNavbar";
 import {Divider, Grid2, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import * as React from "react";
+import {useEffect, useRef, useState} from "react";
 import background from '../../assets/background.jpg'
 import profileIcon from '../../assets/defaultProfileIcon.png'
-import {useEffect, useRef, useState} from "react";
 import studentService from "../../APIs/StudentService";
 
 export const StudentDashboardPage = () => {
@@ -55,7 +55,7 @@ export const StudentDashboardPage = () => {
                 backgroundPosition: 'center',
             }}
         >
-            <StudentsNavbar/>
+            <StudentNavbar/>
 
             <Box
                 display="flex"

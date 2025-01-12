@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import internshipService from "../../APIs/InternshipService";
 import {Avatar, Grid2, Paper, Typography} from "@mui/material";
-import {StudentNavbar} from "../navbars/StudentNavbar";
+import {StudentNavbar} from "../students/StudentNavbar";
 import Button from "@mui/material/Button";
 import Storage from "../../utils/Storage";
-import {CompanyNavbar} from "../navbars/CompanyNavbar";
+import {CompanyNavbar} from "../company/CompanyNavbar";
 
 const LocationLengthWorkMode = ({internship}) => {
     return (

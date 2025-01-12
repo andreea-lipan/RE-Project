@@ -3,8 +3,8 @@ import {InternshipsPage} from "./pages/internships/InternshipsPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {LoginPage} from "./pages/auth/LoginPage";
 import {CustomRoute} from "./utils/CustomeRoute";
-import {CompanyDashboardPage} from "./pages/dashboards/CompanyDashboardPage";
-import {StudentDashboardPage} from "./pages/dashboards/StudentDashboardPage";
+import {CompanyDashboardPage} from "./pages/company/CompanyDashboardPage";
+import {StudentDashboardPage} from "./pages/students/StudentDashboardPage";
 import {InternshipDetails} from "./pages/internships/InternshipDetails";
 import {OngoingInternshipsPage} from "./pages/company/OngoingInternshipsPage";
 import {CompanyPage} from "./pages/company/CompanyPage";
@@ -38,7 +38,7 @@ function App() {
                 <Route path="dashboard" element={<CompanyDashboardPage/>}/>
                 <Route path="internships" element={<OngoingInternshipsPage/>}/>
                 <Route path="page" element={<CompanyPage/>}/>
-                <Route path="add-internship" element={<AddInternshipPage/>}/>
+                <Route path="new-internship" element={<AddInternshipPage/>}/>
             </Route>
 
         </Routes>

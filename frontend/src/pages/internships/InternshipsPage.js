@@ -1,13 +1,13 @@
 import internshipService from "../../APIs/InternshipService";
 import {useEffect, useState} from "react"
 import {InternshipsList} from "./InternshipsList";
-import {StudentNavbar} from "../navbars/StudentNavbar";
+import {StudentNavbar} from "../students/StudentNavbar";
 import {Grid2, Paper} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SearchBar from "./SearchBar";
 import Storage from "../../utils/Storage";
-import {CompanyNavbar} from "../navbars/CompanyNavbar";
+import {CompanyNavbar} from "../company/CompanyNavbar";
 
 export const InternshipsPage = () => {
 

@@ -22,7 +22,7 @@ const LocationLengthWorkMode = ({internship}) => {
             </Grid2>
             <Grid2 size={4}>
                 <Typography variant="h6" sx={{fontFamily: 'Unna, sans-serif'}}>
-                    {internship.name}
+                    {internship.length}
                 </Typography>
             </Grid2>
             <Grid2 size={4}/>
@@ -36,7 +36,7 @@ const LocationLengthWorkMode = ({internship}) => {
             </Grid2>
             <Grid2 size={4}>
                 <Typography variant="h6" sx={{fontFamily: 'Unna, sans-serif'}}>
-                    {internship.name}
+                    {internship.location}
                 </Typography>
             </Grid2>
             <Grid2 size={4}/>
@@ -50,7 +50,7 @@ const LocationLengthWorkMode = ({internship}) => {
             </Grid2>
             <Grid2 size={4}>
                 <Typography variant="h6" sx={{fontFamily: 'Unna, sans-serif'}}>
-                    {internship.name}
+                    {internship.worktype}
                 </Typography>
             </Grid2>
             <Grid2 size={4}/>

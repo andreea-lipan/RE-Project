@@ -72,7 +72,7 @@ export const InternshipCard = ({internship}) => {
                             <TimerIcon/>
                         </Grid2>
                         <Grid2 size={1}>
-                            {internship.name}
+                            {internship.length}
                         </Grid2>
                         <Grid2 size={1}/>
 
@@ -81,7 +81,7 @@ export const InternshipCard = ({internship}) => {
                             <BusinessCenterIcon/>
                         </Grid2>
                         <Grid2 size={1}>
-                            {internship.name}
+                            {internship.location}
                         </Grid2>
                         <Grid2 size={1}/>
 
@@ -90,7 +90,7 @@ export const InternshipCard = ({internship}) => {
                             <PaidIcon/>
                         </Grid2>
                         <Grid2 size={1}>
-                            {internship.name}
+                            {internship.salary}
                         </Grid2>
                         <Grid2 size={1}/>
 

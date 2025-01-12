@@ -17,8 +17,16 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public void populate(){
+
         for(int i = 1; i <= 10; i++){
             Internship internship = new Internship("Internship" + i);
+            internship.setSalary(String.valueOf(1<<i));
+            internship.setLength(String.valueOf(i));
+            if(i%3==0)internship.setWorktype("Remote");
+            else if(i%2==0)internship.setWorktype("Hybrid");
+            else internship.setWorktype("On Site");
+            internship.setLocation("Orasul" + i);
+
             internshipRepository.save(internship);
         }
     }

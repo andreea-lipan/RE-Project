@@ -8,10 +8,14 @@ import Box from "@mui/material/Box";
 import SearchBar from "./SearchBar";
 import Storage from "../../utils/Storage";
 import {CompanyNavbar} from "../company/CompanyNavbar";
+import FilterDialog from "./FilterDialog";
 
 export const InternshipsPage = () => {
 
     const [internships, setInternships] = useState([]);
+    const [filteredInternships, setFilteredInternships] = useState([]);
+    const [filterDialogOpen, setFilterDialogOpen] = useState(false);
+
     const showStudentNavbar = Storage.getUserRole() === 'STUDENT';
 
     //
@@ -27,7 +31,8 @@ export const InternshipsPage = () => {
                 }
             })
             .then(data => {
-                setInternships(data)
+                setInternships(data);
+                setFilteredInternships(data);
             })
             .catch(err => {
                 console.log(err)
@@ -39,59 +44,112 @@ export const InternshipsPage = () => {
         setInternships(result.data);
     }
 
-    const handleSearch = () =>{
-        //TODO: Implement search
-    }
+    const handleSearch = (term) => {
+            if (!term.trim()) {
+                setFilteredInternships(internships);
+                return;
+            }
+            const filtered = internships.filter((internship) =>
+                internship.name.toLowerCase().includes(term.toLowerCase())
+            );
+            setFilteredInternships(filtered);
+        };
+
+    const handleFilterClick = () => {
+            setFilterDialogOpen(true);
+        };
+
+        const handleFilterDialogClose = () => {
+            setFilterDialogOpen(false);
+        };
+
+        const applyFilters = (filters) => {
+            let filtered = internships;
+
+            if (filters.length) {
+                filtered = filtered.filter(
+                    (internship) => internship.length === filters.length
+                );
+            }
+
+            if (filters.salary) {
+                filtered = filtered.filter(
+                    (internship) => internship.salary >= Number(filters.salary)
+                );
+            }
+
+            if (filters.workType) {
+                filtered = filtered.filter(
+                    (internship) => internship.workType === filters.workType
+                );
+            }
+
+            if (filters.location) {
+                filtered = filtered.filter((internship) =>
+                    internship.location
+                        .toLowerCase()
+                        .includes(filters.location.toLowerCase())
+                );
+            }
+
+            setFilteredInternships(filtered);
+        };
 
     return (
-        <>
-            <Grid2 container
-                   direction="row"
-                   sx={{
-                       justifyContent: "center",
-                       alignItems: "center",
-                       marginBottom: "20px",
-                   }}
-            >
-                {showStudentNavbar ?
-                    <StudentNavbar/> : <CompanyNavbar/>
-                }
-            </Grid2>
-            <br/>
-            <Grid2
-                container
-                direction="row"
-                sx={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100vh",
-                }}
-            >
-                <Paper elevation={6} style={{
-                    maxWidth: '60vw',
-                    backgroundColor: '#165A8B',
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: "center"
-                }}
+            <>
+                <Grid2
+                    container
+                    direction="row"
+                    sx={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: "20px",
+                    }}
                 >
-                    <Box sx={
-                        {
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            margin:'20px'
-                        }
-                    }>
-                        <Button>Filter</Button>
-                        <SearchBar onSearch={handleSearch}/>
-                    </Box>
+                    {showStudentNavbar ? <StudentNavbar /> : <CompanyNavbar />}
+                </Grid2>
 
-                    <InternshipsList internships={internships}/>
-                </Paper>
-            </Grid2>
-        </>
-    )
-}
+                <Grid2
+                    container
+                    direction="row"
+                    sx={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100vh",
+                    }}
+                >
+                    <Paper
+                        elevation={6}
+                        style={{
+                            maxWidth: "60vw",
+                            backgroundColor: "#165A8B",
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                margin: "20px",
+                            }}
+                        >
+                            <Button onClick={handleFilterClick}>Filter</Button>
+                            <SearchBar onSearch={handleSearch} />
+                        </Box>
+                        <InternshipsList internships={filteredInternships} />
+                    </Paper>
+                </Grid2>
+
+                <FilterDialog
+                    open={filterDialogOpen}
+                    onClose={handleFilterDialogClose}
+                    onApplyFilters={applyFilters}
+                />
+            </>
+        );
+    };

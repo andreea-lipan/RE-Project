@@ -5,6 +5,7 @@ import {LoginPage} from "./pages/auth/LoginPage";
 import {CustomRoute} from "./utils/CustomeRoute";
 import {CompanyDashboardPage} from "./pages/dashboards/CompanyDashboardPage";
 import {StudentDashboardPage} from "./pages/dashboards/StudentDashboardPage";
+import {InternshipDetails} from "./pages/internships/InternshipDetails";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             {/*student content*/}
             <Route path='/students' element={<CustomRoute roles={['STUDENT']}/>}>
                 <Route path="internships" element={<InternshipsPage/>}/>
+                <Route path="internship-details/:id" element={<InternshipDetails/>}/>
                 <Route path="dashboard" element={<StudentDashboardPage/>}/>
             </Route>
 

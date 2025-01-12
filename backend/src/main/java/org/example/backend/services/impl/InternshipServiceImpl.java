@@ -26,7 +26,6 @@ public class InternshipServiceImpl implements InternshipService {
             else if(i%2==0)internship.setWorktype("Hybrid");
             else internship.setWorktype("On Site");
             internship.setLocation("Orasul" + i);
-
             internshipRepository.save(internship);
         }
     }

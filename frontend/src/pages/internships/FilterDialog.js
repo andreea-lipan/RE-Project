@@ -74,4 +74,5 @@ const FilterDialog = ({ open, onClose, onApplyFilters }) => {
     );
 };
 
+
 export default FilterDialog;

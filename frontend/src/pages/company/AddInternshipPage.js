@@ -98,6 +98,7 @@ export const AddInternshipPage = () => {
                         margin="normal"
                     />
 
+
                     {/* Work Type, Deadline, Location, Salary */}
                     <TextField
                         label="Work Type"

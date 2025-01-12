@@ -4,15 +4,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {useNavigate} from "react-router-dom";
-import {
-    HOME,
-    STUDENT_APPLICATIONS,
-    STUDENT_DASHBOARD,
-    STUDENT_INTERNSHIPS
-} from "../../utils/URLconstants";
+import {HOME, INTERNSHIPS, STUDENT_APPLICATIONS, STUDENT_DASHBOARD} from "../../utils/URLconstants";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-export const StudentsNavbar = () => {
+export const StudentNavbar = () => {
 
     const navigate = useNavigate();
 
@@ -44,7 +38,7 @@ export const StudentsNavbar = () => {
                     color="inherit"
                     aria-label="menu"
                     sx={{mr: 2}}
-                    onClick={() => navigateTo(STUDENT_INTERNSHIPS)}
+                    onClick={() => navigateTo(INTERNSHIPS)}
                 >
                     <Typography variant="body1" component="div" sx={{flexGrow: 1}}>
                         Browse Internships

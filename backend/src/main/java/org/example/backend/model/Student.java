@@ -1,5 +1,6 @@
 package org.example.backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,4 +16,7 @@ public class Student extends Utilizator {
 
     @Enumerated(EnumType.STRING)
     private Specialization specialization;
+
+    @Column(name = "cv")
+    private byte[] cv;
 }

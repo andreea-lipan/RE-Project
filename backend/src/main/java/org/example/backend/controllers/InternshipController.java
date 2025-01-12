@@ -1,13 +1,10 @@
 package org.example.backend.controllers;
 
 import org.example.backend.model.Internship;
-import org.example.backend.persistence.InternshipRepository;
 import org.example.backend.services.InternshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -31,6 +28,15 @@ public class InternshipController {
     public ResponseEntity<?> getAllInternships() {
         try {
             return ResponseEntity.ok(internshipService.getAllInternships());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getInternshipById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(internshipService.getInternshipById(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

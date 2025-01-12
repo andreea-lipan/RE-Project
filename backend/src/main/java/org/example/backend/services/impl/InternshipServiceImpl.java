@@ -3,6 +3,7 @@ package org.example.backend.services.impl;
 import org.example.backend.model.Internship;
 import org.example.backend.persistence.InternshipRepository;
 import org.example.backend.services.InternshipService;
+import org.example.backend.services.exceptions.RepoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,10 @@ public class InternshipServiceImpl implements InternshipService {
     @Override
     public List<Internship> getAllInternships() {
         return internshipRepository.findAll();
+    }
+
+    @Override
+    public Internship getInternshipById(Long id) {
+        return internshipRepository.findById(id).orElseThrow(() -> new RepoException("Internship not found"));
     }
 }

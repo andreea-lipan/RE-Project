@@ -13,7 +13,7 @@ import authService from "../../APIs/AuthService";
 import {useNavigate} from "react-router-dom";
 import {COMPANY_DASHBOARD, STUDENT_DASHBOARD} from "../../utils/URLconstants";
 import Storage from "../../utils/Storage";
-import LoginBackground from './loginBackground.jpg'
+import LoginBackground from '../../assets/background.jpg'
 import '@fontsource/unna';
 
 

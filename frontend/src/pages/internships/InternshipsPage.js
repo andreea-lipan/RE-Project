@@ -1,18 +1,19 @@
 import internshipService from "../../APIs/InternshipService";
-import {useState, useEffect} from "react"
-import requestInstance from "../../APIs/RequestInstance";
-import {InternshipCard} from "./InternshipCard";
+import {useEffect, useState} from "react"
 import {InternshipsList} from "./InternshipsList";
-import {StudentsNavbar} from "../navbars/StudentsNavbar";
-import {Grid2, IconButton, Paper, TextField} from "@mui/material";
+import {StudentNavbar} from "../students/StudentNavbar";
+import {Grid2, Paper} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import SearchBar from "./SearchBar";
-
+import Storage from "../../utils/Storage";
+import {CompanyNavbar} from "../company/CompanyNavbar";
 
 export const InternshipsPage = () => {
 
     const [internships, setInternships] = useState([]);
+    const showStudentNavbar = Storage.getUserRole() === 'STUDENT';
+
     //
     useEffect(() => {
         // loadInternships();
@@ -52,7 +53,9 @@ export const InternshipsPage = () => {
                        marginBottom: "20px",
                    }}
             >
-                <StudentsNavbar/>
+                {showStudentNavbar ?
+                    <StudentNavbar/> : <CompanyNavbar/>
+                }
             </Grid2>
             <br/>
             <Grid2

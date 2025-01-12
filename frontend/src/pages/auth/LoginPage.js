@@ -1,12 +1,20 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import {useEffect, useState} from "react";
-import {Button, Paper, Typography} from "@mui/material";
+import {
+    Button,
+    Card,
+    Divider,
+    Grid2,
+    Paper,
+    Typography
+} from "@mui/material";
 import authService from "../../APIs/AuthService";
 import {useNavigate} from "react-router-dom";
 import {COMPANY_DASHBOARD, STUDENT_DASHBOARD} from "../../utils/URLconstants";
 import Storage from "../../utils/Storage";
+import LoginBackground from './loginBackground.jpg'
+import '@fontsource/unna';
 
 
 export const LoginPage = () => {
@@ -15,6 +23,7 @@ export const LoginPage = () => {
     const [errorMsg, setErrorMsg] = useState('');
     const navigate = useNavigate();
 
+    // navigate to dashboard based on user role
     const navigateCallback = () => {
         const role = Storage.getUserRole()
         if (role === 'STUDENT') {
@@ -24,6 +33,7 @@ export const LoginPage = () => {
         }
     }
 
+    // on LogIn button click
     const logIn = () => {
         authService.logIn(email, password)
             .then(res => {
@@ -44,11 +54,51 @@ export const LoginPage = () => {
         }
     }, [])
 
+
     return (
         <>
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-                <Paper elevation={3} style={{padding: '40px', maxWidth: '400px', width: '100%'}}>
-                    <Typography variant="h5" component="h1" gutterBottom>
+            <Grid2
+                container
+                direction="row"
+                sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                    backgroundImage: `url(${LoginBackground})`,
+                    backgroundSize: 'cover'
+                }}
+            >
+                <Card>
+                    <Card sx={{
+                        height: '630px', maxWidth: '300px', paddingX: '150px', display: 'flex',
+                        flexDirection: 'column', justifyContent: "center", bgcolor: '#165A8B'
+                    }}>
+                        <Typography sx={{fontSize: '32px', fontFamily: 'Unna, sans-serif', color: '#F9D6AE'}}>
+                            www.practica.com
+                        </Typography>
+                        <Divider sx={{margin: '20px 0', borderColor: 'grey'}}/>
+                        <Typography sx={{
+                            fontSize: '18px',
+                            fontFamily: 'Unna, sans-serif',
+                            paddingTop: '20px',
+                            color: '#F9D6AE'
+                        }}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et risus sapien.
+                        </Typography>
+                    </Card>
+                </Card>
+
+                <Paper elevation={6} style={{
+                    padding: '40px',
+                    maxWidth: '400px',
+                    width: '100%',
+                    height: '550px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: "center"
+                }}>
+                    <Typography variant="h5" component="h1" gutterBottom
+                                sx={{fontSize: '32px', fontFamily: 'Unna, sans-serif'}}>
                         Login
                     </Typography>
                     <TextField
@@ -74,19 +124,29 @@ export const LoginPage = () => {
                         fullWidth
                         style={{marginTop: '20px'}}
                         onClick={logIn}
+                        sx={{
+                            marginTop: '20px',
+                            bgcolor: '#165A8B',
+                            '&:hover': {bgcolor: '#6883ad'},
+                        }}
                     >
                         Login
                     </Button>
 
                     {errorMsg ?
-                        <Typography component="h1" gutterBottom color="error">
+                        <Typography component="h1" color="error" sx={{
+                            marginTop: '10px'
+                        }}>
                             {errorMsg}
                         </Typography>
-                        : <Typography component="h1" gutterBottom color="white">
+                        : <Typography component="h1" color="white" sx={{
+                            marginTop: '10px'
+                        }}>
                             :)
                         </Typography>}
                 </Paper>
-            </div>
+            </Grid2>
+
         </>
 
     )

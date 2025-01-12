@@ -1,5 +1,7 @@
 package org.example.backend.controllers;
 
+import org.example.backend.model.Company;
+import org.example.backend.model.DTOs.CompanyDTO;
 import org.example.backend.model.DTOs.LoginRequest;
 import org.example.backend.model.DTOs.LoginResponse;
 import org.example.backend.model.Internship;
@@ -22,6 +24,17 @@ public class AuthController {
         try {
             LoginResponse response = authService.logIn(loginRequest);
             return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("company-signup")
+    public ResponseEntity<?> registerCompany(@RequestBody CompanyDTO companyDTO) {
+        try {
+            Company company = companyDTO.toCompany();
+            authService.registerCompany(company);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

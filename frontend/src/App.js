@@ -7,6 +7,7 @@ import {CompanyDashboardPage} from "./pages/company/CompanyDashboardPage";
 import {StudentDashboardPage} from "./pages/students/StudentDashboardPage";
 import {InternshipDetails} from "./pages/internships/InternshipDetails";
 import {OngoingInternshipsPage} from "./pages/company/OngoingInternshipsPage";
+import {CompanyRegisterPage} from "./pages/auth/CompanyRegisterPage";
 import {CompanyPage} from "./pages/company/CompanyPage";
 import {AddInternshipPage} from "./pages/company/AddInternshipPage";
 import {StudentApplicationsPage} from "./pages/students/StudentApplicationsPage";
@@ -20,6 +21,7 @@ function App() {
 
             {/*public content*/}
             <Route path="/" element={<LoginPage/>}/>
+            <Route path="/register-company" element={<CompanyRegisterPage/>}/>
 
             {/*common content*/}
             <Route path='/' element={<CustomRoute roles={['STUDENT','COMPANY']}/>}>

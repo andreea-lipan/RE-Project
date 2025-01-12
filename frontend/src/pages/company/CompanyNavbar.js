@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {useNavigate} from "react-router-dom";
-import {COMPANY_DASHBOARD, HOME, INTERNSHIPS} from "../../utils/URLconstants";
+import {COMPANY_DASHBOARD, LOGIN, INTERNSHIPS} from "../../utils/URLconstants";
 
 export const CompanyNavbar = () => {
 
@@ -16,7 +16,7 @@ export const CompanyNavbar = () => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate(HOME);
+        navigate(LOGIN);
     }
 
     return (

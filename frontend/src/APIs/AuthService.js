@@ -12,7 +12,12 @@ const logIn = (email, password) => {
         })
 }
 
+const registerCompany = (data) => {
+    return RequestInstance.post(AUTH_ENDPOINTS.COMPANY_SIGNUP, data)
+}
+
 const AuthService = {
+    registerCompany,
     logIn
 }
 

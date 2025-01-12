@@ -9,7 +9,8 @@ export const INTERNSHIPS_ENDPOINTS = {
 }
 
 export const AUTH_ENDPOINTS = {
-    LOGIN: `${BASE_URL}/auth/login`
+    LOGIN: `${BASE_URL}/auth/login`,
+    COMPANY_SIGNUP: `${BASE_URL}/auth/company-signup`
 }
 
 

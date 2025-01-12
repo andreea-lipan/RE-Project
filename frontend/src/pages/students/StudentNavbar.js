@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {useNavigate} from "react-router-dom";
-import {HOME, INTERNSHIPS, STUDENT_APPLICATIONS, STUDENT_DASHBOARD} from "../../utils/URLconstants";
+import {LOGIN, INTERNSHIPS, STUDENT_APPLICATIONS, STUDENT_DASHBOARD} from "../../utils/URLconstants";
 
 export const StudentNavbar = () => {
 
@@ -16,7 +16,7 @@ export const StudentNavbar = () => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate(HOME);
+        navigate(LOGIN);
     }
 
     return (

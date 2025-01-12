@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import internshipService from "../../APIs/InternshipService";
 import {Avatar, Grid2, Paper, Typography} from "@mui/material";
-import {StudentsNavbar} from "../navbars/StudentsNavbar";
+import {StudentNavbar} from "../navbars/StudentNavbar";
 import Button from "@mui/material/Button";
+import Storage from "../../utils/Storage";
+import {CompanyNavbar} from "../navbars/CompanyNavbar";
 
 const LocationLengthWorkMode = ({internship}) => {
     return (
@@ -61,6 +63,8 @@ export const InternshipDetails = () => {
 
     const {id} = useParams();
 
+    const showButton = Storage.getUserRole() === "STUDENT";
+
     const [internship, setInternship] = useState({});
 
     const description =
@@ -101,7 +105,9 @@ export const InternshipDetails = () => {
                        marginBottom: "20px",
                    }}
             >
-                <StudentsNavbar/>
+                {showButton ?
+                    <StudentNavbar/> : <CompanyNavbar/>
+                }
             </Grid2>
             <br/>
 
@@ -142,7 +148,7 @@ export const InternshipDetails = () => {
                             </Grid2>
                             <Grid2 size={10}/>
 
-                            <Grid2 size={3} sx={{marginTop:"20px"}}>
+                            <Grid2 size={3} sx={{marginTop: "20px"}}>
                                 <Avatar
                                     sx={{
                                         width: 150,
@@ -152,74 +158,74 @@ export const InternshipDetails = () => {
                                     C
                                 </Avatar>
                             </Grid2>
-                            <Grid2 size={8} >
+                            <Grid2 size={8}>
                                 <LocationLengthWorkMode internship={internship}/>
                             </Grid2>
                             <Grid2 size={1}/>
 
-                            <Grid2 size={12} sx={{marginTop:"30px"}}>
+                            <Grid2 size={12} sx={{marginTop: "30px"}}>
                                 <Typography variant="body1">
                                     {description}
                                 </Typography>
                             </Grid2>
 
-                            <Grid2 size={4} sx={{marginTop:"30px"}}>
+                            <Grid2 size={4} sx={{marginTop: "30px"}}>
                                 <Typography variant="h4">
                                     Required Knowledge
                                 </Typography>
                             </Grid2>
-                            <Grid2 size={8} />
-                            <Grid2 size={12} sx={{marginTop:"15px"}}>
+                            <Grid2 size={8}/>
+                            <Grid2 size={12} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
                                     {shortDesc}
                                 </Typography>
                             </Grid2>
 
-                            <Grid2 size={4} sx={{marginTop:"30px"}}>
+                            <Grid2 size={4} sx={{marginTop: "30px"}}>
                                 <Typography variant="h4">
                                     Steps to apply
                                 </Typography>
                             </Grid2>
-                            <Grid2 size={8} />
-                            <Grid2 size={12} sx={{marginTop:"15px"}}>
+                            <Grid2 size={8}/>
+                            <Grid2 size={12} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
                                     {shortDesc}
                                 </Typography>
                             </Grid2>
 
-                            <Grid2 size={4} sx={{marginTop:"15px"}}>
+                            <Grid2 size={4} sx={{marginTop: "15px"}}>
                                 <Typography variant="h4">
                                     Salary Information
                                 </Typography>
                             </Grid2>
-                            <Grid2 size={8} />
-                            <Grid2 size={5} sx={{marginTop:"15px"}}>
+                            <Grid2 size={8}/>
+                            <Grid2 size={5} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
                                     {shortestDesc}
                                 </Typography>
                             </Grid2>
                             <Grid2 size={7}/>
 
-                            <Grid2 size={4} sx={{marginTop:"15px"}}>
+                            <Grid2 size={4} sx={{marginTop: "15px"}}>
                                 <Typography variant="h4">
                                     Number of current applicants
                                 </Typography>
                             </Grid2>
-                            <Grid2 size={8} />
-                            <Grid2 size={5} sx={{marginTop:"15px"}}>
+                            <Grid2 size={8}/>
+                            <Grid2 size={5} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
                                     {shortestDesc}
                                 </Typography>
                             </Grid2>
                             <Grid2 size={7}/>
 
-                            <Grid2 size={4} sx={{marginTop:"15px"}}>
+                            <Grid2 size={4} sx={{marginTop: "15px"}}>
                                 <Typography variant="h4">
                                     Contact
                                 </Typography>
                             </Grid2>
-                            <Grid2 size={8} />
-                            <Grid2 size={5} sx={{marginTop:"15px"}}>
+                            <Grid2 size={8}/>
+                            <Grid2 size={5} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
                                     {shortestDesc}
                                 </Typography>
@@ -229,12 +235,13 @@ export const InternshipDetails = () => {
                             </Grid2>
                             <Grid2 size={7}/>
 
-                            <Grid2 size={12} sx={{margin:"15px"}}>
+                            <Grid2 size={12} sx={{margin: "15px"}}>
                                 <Button
                                     variant="contained"
                                     color="primary"
                                     style={{marginTop: '20px', width: '50%'}}
                                     onClick={handleApply}
+                                    disabled={!showButton}
                                     sx={{
                                         marginTop: '20px',
                                         bgcolor: '#165A8B',

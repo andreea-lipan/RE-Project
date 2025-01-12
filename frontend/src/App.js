@@ -6,9 +6,9 @@ import {CustomRoute} from "./utils/CustomeRoute";
 import {CompanyDashboardPage} from "./pages/company/CompanyDashboardPage";
 import {StudentDashboardPage} from "./pages/students/StudentDashboardPage";
 import {InternshipDetails} from "./pages/internships/InternshipDetails";
-import {OngoingInternshipsPage} from "./pages/company/OngoingInternshipsPage";
+import {OngoingInternshipsPage} from "./pages/company/internships/OngoingInternshipsPage";
 import {CompanyPage} from "./pages/company/CompanyPage";
-import {AddInternshipPage} from "./pages/company/AddInternshipPage";
+import {AddInternshipPage} from "./pages/company/internships/AddInternshipPage";
 import {StudentApplicationsPage} from "./pages/students/StudentApplicationsPage";
 
 function App() {

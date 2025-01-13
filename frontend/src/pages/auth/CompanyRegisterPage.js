@@ -13,19 +13,19 @@ export const CompanyRegisterPage = () => {
     // Form data state
     const [formData, setFormData] = useState({
         // private
-        loginEmail: '',
-        loginPassword: '',
-        //public
-        companyName: '',
-        companyType: '',
-        phoneNumber: '',
-        email: '',
-        address: '',
-        website: '',
-        shortDescription: '',
-        longDescription: '',
-        workplace: '',
-        previousInternships: ''
+        loginEmail: 'a@a.ro',
+        loginPassword: 'a',
+        // public
+        companyName: 'Tech Solutions Inc.',
+        companyType: 'Software Development Company',
+        phoneNumber: '+1 555-234-5678',
+        email: 'info@techsolutions.com',
+        address: '123 Innovation Drive, Silicon Valley, CA, 94025',
+        website: 'https://www.techsolutions.com',
+        shortDescription: 'Innovative software solutions for modern businesses.',
+        longDescription: `Tech Solutions Inc. is a cutting-edge technology company committed to helping businesses thrive in the digital age. We deliver customized software development services tailored to meet the unique needs of our clients. Our expertise includes developing high-performance web applications, intuitive mobile apps, and seamless cloud integrations. With a focus on user-centric design, security, and scalability, we aim to drive innovation and efficiency for organizations across various industries. Over the past decade, we have collaborated with startups, SMBs, and Fortune 500 companies, ensuring exceptional service delivery through agile methodologies and a highly skilled team of professionals.`,
+        workplace: 'Hybrid (Remote and On-Site)',
+        previousInternships: 'Tech Solutions Inc. has a strong track record of mentoring aspiring professionals. Over the last five years, we have hosted over 50 interns across diverse roles, including software engineering, data science, quality assurance, UI/UX design, digital marketing, and product management. Many of our former interns have transitioned to full-time roles within the company, while others have gone on to work with industry-leading organizations. Our internship program provides hands-on project experience, personalized mentorship, and opportunities to contribute to real-world applications, ensuring every participant gains valuable industry insights and practical skills.'
     });
 
     // Handle input change
@@ -59,7 +59,6 @@ export const CompanyRegisterPage = () => {
     //todo create a separate component for error messages
 
     return (
-
         <Grid2
             container
             direction="row"

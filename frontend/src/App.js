@@ -39,7 +39,7 @@ function App() {
             <Route path='/company' element={<CustomRoute roles={['COMPANY']}/>}>
                 <Route path="dashboard" element={<CompanyDashboardPage/>}/>
                 <Route path="internships" element={<OngoingInternshipsPage/>}/>
-                <Route path="page" element={<CompanyPage/>}/>
+                <Route path="page/:id" element={<CompanyPage/>}/>
                 <Route path="new-internship" element={<AddInternshipPage/>}/>
             </Route>
 

@@ -1,5 +1,6 @@
 package org.example.backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -10,16 +11,22 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @SuperBuilder // make cool chainigng
 public class Company extends Utilizator {
-    private String loginEmail;
-    private String loginPassword;
     private String companyName;
     private String companyType;
     private String phoneNumber;
-    private String email;
+    private String publicEmail;
     private String address;
     private String website;
+
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
+
+    @Column(columnDefinition = "TEXT")
     private String longDescription;
+
+    @Column(columnDefinition = "TEXT")
     private String workplace;
+
+    @Column(columnDefinition = "TEXT")
     private String previousInternships;
 }

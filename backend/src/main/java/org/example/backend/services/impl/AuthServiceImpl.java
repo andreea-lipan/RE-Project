@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void registerCompany(Company company) {
-        if (userRepository.findUserByEmail(company.getLoginEmail()).isPresent()) {
+        if (userRepository.findUserByEmail(company.getEmail()).isPresent()) {
             throw new ServiceException("Email already in use!");
         }
         companyRepository.save(company);

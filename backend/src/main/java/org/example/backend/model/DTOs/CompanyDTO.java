@@ -26,13 +26,13 @@ public class CompanyDTO {
 
     public Company toCompany() {
         return Company.builder()
-                .loginEmail(loginEmail)
+                .email(loginEmail)
                 .password(loginPassword)
                 .role(UserRole.COMPANY)
                 .companyName(companyName)
                 .companyType(companyType)
                 .phoneNumber(phoneNumber)
-                .email(email)
+                .publicEmail(email)
                 .address(address)
                 .website(website)
                 .shortDescription(shortDescription)

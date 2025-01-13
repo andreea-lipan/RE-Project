@@ -28,7 +28,7 @@ export const CompanyNavbar = () => {
             //make it sticky
             top: 0,
             //make it 90vh wide in the center
-            width: '100vw',
+            // minWidth: '100vw',
 
         }}>
             <Toolbar >

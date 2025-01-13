@@ -18,3 +18,7 @@ export const STUDENT_ENDPOINTS = {
     UPLOAD_CV: (id) => `${BASE_URL}/students/${id}/cv`,
     STUDENT_BY_ID: (id) => `${BASE_URL}/students/${id}`
 }
+
+export const COMPANY_ENDPOINTS = {
+    COMPANY_BY_ID: (id) => `${BASE_URL}/companies/${id}`
+}

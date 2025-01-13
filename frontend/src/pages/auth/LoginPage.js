@@ -18,8 +18,8 @@ import '@fontsource/unna';
 
 
 export const LoginPage = () => {
-    const [email, setEmail] = useState('email1@facultate.ro'); // default values for testing
-    const [password, setPassword] = useState('parola1');
+    const [email, setEmail] = useState('student1@facultate.ro'); // default values for testing
+    const [password, setPassword] = useState('a');
     const [errorMsg, setErrorMsg] = useState('');
     const navigate = useNavigate();
 

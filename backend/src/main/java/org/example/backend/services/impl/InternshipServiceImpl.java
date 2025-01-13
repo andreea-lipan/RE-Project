@@ -6,6 +6,7 @@ import org.example.backend.model.Internship;
 import org.example.backend.persistence.CompanyRepository;
 import org.example.backend.persistence.InternshipRepository;
 import org.example.backend.services.InternshipService;
+import org.example.backend.services.MockDataService;
 import org.example.backend.services.exceptions.RepoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class InternshipServiceImpl implements InternshipService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private MockDataService mockDataService;
+
     public Long randomCompanyId(){
         List<Company> companies = companyRepository.findAll();
         return companies.get((int)(Math.random()*companies.size())).getId();
@@ -31,17 +35,16 @@ public class InternshipServiceImpl implements InternshipService {
     public void populate(){
 
         for(int i = 1; i <= 30; i++){
-            Internship internship = new Internship("Internship" + i);
+            Internship internship = new Internship();
+            internship.setName(mockDataService.randomInternshipName());
             internship.setCompany(companyRepository.findById(randomCompanyId()).orElseThrow(() -> new RepoException("Company not found")));
-            internship.setSalary(String.valueOf(1<<i));
-            internship.setLength(String.valueOf(i));
-            if(i%3==0)internship.setWorkType("Remote");
-            else if(i%2==0)internship.setWorkType("Hybrid");
-            else internship.setWorkType("On Site");
-            internship.setLocation("Orasul" + i);
-            internship.setDescription("Description" + i);
-            internship.setRequiredKnowledge("Skills" + i);
-            internship.setStepsToApply("Steps" + i);
+            internship.setSalary(mockDataService.randomSalary());
+            internship.setLength(mockDataService.randomLength());
+            internship.setWorkType(mockDataService.randomWorkType());
+            internship.setLocation(mockDataService.randomLocation());
+            internship.setDescription(mockDataService.randomDescription());
+            internship.setRequiredKnowledge(mockDataService.randomRequiredKnowledge());
+            internship.setStepsToApply(mockDataService.randomStepsToApply());
             internshipRepository.save(internship);
         }
     }

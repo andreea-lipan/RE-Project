@@ -1,8 +1,11 @@
 package org.example.backend.services.impl;
 
+import org.example.backend.model.Specialization;
 import org.example.backend.services.MockDataService;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 @Service
@@ -198,6 +201,147 @@ public class MockDataServiceImpl implements MockDataService {
         return PREVIOUS_INTERNSHIPS[index];
     }
 
+    // ------------------ STUDENTS ------------------
 
+    private static final String[] FIRST_NAMES = {
+            "Alex", "Maria", "John", "Sophia", "Michael",
+            "Emma", "David", "Olivia", "Daniel", "Liam"
+    };
+
+    private static final String[] LAST_NAMES = {
+            "Smith", "Johnson", "Brown", "Taylor", "Anderson",
+            "Thomas", "Jackson", "White", "Harris", "Martin"
+    };
+
+    public String randomFirstName() {
+        Random random = new Random();
+        return FIRST_NAMES[random.nextInt(FIRST_NAMES.length)];
+    }
+
+    public String randomLastName() {
+        Random random = new Random();
+        return LAST_NAMES[random.nextInt(LAST_NAMES.length)];
+    }
+
+    public Specialization randomSpecialization() {
+        Specialization[] specializations = Specialization.values();
+        Random random = new Random();
+        return specializations[random.nextInt(specializations.length)];
+    }
+
+
+    // ------------------ INTERNSHIPS ------------------
+
+    private static final String[] INTERNSHIP_NAMES = {
+            "Software Development Intern", "Data Analyst Intern", "Marketing Intern",
+            "Product Manager Intern", "Graphic Design Intern", "AI Research Intern",
+            "Cybersecurity Intern", "Web Developer Intern", "Cloud Computing Intern", "HR Intern"
+    };
+
+    public String randomInternshipName() {
+        Random random = new Random();
+        return INTERNSHIP_NAMES[random.nextInt(INTERNSHIP_NAMES.length)];
+    }
+    private static final String[] LENGTHS = {
+            "3 months", "6 months", "12 weeks", "8 weeks", "1 month", "4 months"
+    };
+
+    public String randomLength() {
+        Random random = new Random();
+        return LENGTHS[random.nextInt(LENGTHS.length)];
+    }
+    private static final String[] WORK_TYPES = {
+            "Remote", "On-site", "Hybrid"
+    };
+
+    public String randomWorkType() {
+        Random random = new Random();
+        return WORK_TYPES[random.nextInt(WORK_TYPES.length)];
+    }
+
+    public Date randomDeadline() {
+        Calendar calendar = Calendar.getInstance();
+        Random random = new Random();
+        int daysToAdd = random.nextInt(90) + 1; // Random number of days within 3 months
+        calendar.add(Calendar.DAY_OF_YEAR, daysToAdd);
+        return calendar.getTime();
+    }
+
+    private static final String[] LOCATIONS = {
+            "New York, NY", "San Francisco, CA", "Austin, TX", "Seattle, WA",
+            "Boston, MA", "Chicago, IL", "Remote", "Denver, CO", "Miami, FL", "Atlanta, GA"
+    };
+
+    public String randomLocation() {
+        Random random = new Random();
+        return LOCATIONS[random.nextInt(LOCATIONS.length)];
+    }
+
+    private static final String[] DETAILED_DESCRIPTIONS = {
+            "Join our dynamic and innovative team as a Software Development Intern. You will be directly involved in designing, developing, and testing software solutions that address real-world challenges. Collaborate with experienced developers to learn about coding best practices, debugging techniques, and software lifecycle management. You’ll work on exciting technologies such as cloud computing, machine learning, or microservices architecture, depending on the project's focus. This internship offers hands-on experience with modern tools and frameworks, helping you build a strong foundation in software engineering. By the end of the program, you’ll have contributed to meaningful projects and gained valuable industry insights, preparing you for a successful career in technology.",
+            "As a Data Analyst Intern, you will have the opportunity to work with large datasets to uncover trends and actionable insights. Your responsibilities will include cleaning and organizing data, creating dashboards, and preparing reports for key stakeholders. Learn advanced analytical techniques, such as predictive modeling and statistical analysis, while using tools like Python, R, or SQL. You’ll collaborate closely with the analytics and strategy teams to solve complex problems and present data-driven recommendations. This role provides a unique chance to enhance your critical thinking and technical skills in a professional setting. By the end of the internship, you will have built a portfolio of impactful projects showcasing your ability to derive insights from data.",
+            "Participate in our Marketing Internship Program and gain hands-on experience in crafting effective marketing campaigns. You will assist in creating social media content, developing email marketing strategies, and analyzing the performance of ongoing campaigns. This role will expose you to various aspects of digital marketing, including search engine optimization, paid advertising, and brand storytelling. You’ll work alongside a creative and collaborative team, contributing to campaigns that directly impact the company’s visibility and growth. This internship is perfect for individuals passionate about connecting with audiences and understanding market trends. By the end of the program, you’ll have developed a strong foundation in marketing and gained practical skills to advance your career.",
+            "Our Product Management Internship offers an exciting opportunity to gain insight into the world of technology innovation. Work closely with engineering, design, and marketing teams to define product requirements and roadmaps. You’ll contribute to creating user stories, prioritizing features, and ensuring successful product delivery. This role will help you understand the nuances of customer needs and how to translate them into technical solutions. You will also participate in stakeholder meetings, learning how to balance competing priorities in a dynamic environment. By the end of the internship, you will have gained a holistic view of product lifecycle management and the skills to excel in product strategy roles.",
+            "Join our Graphic Design Internship to bring creative ideas to life through visual storytelling. You’ll be involved in designing assets for digital campaigns, social media, and print materials, ensuring consistency with the company’s brand identity. Gain hands-on experience with tools like Adobe Photoshop, Illustrator, and Figma, while exploring modern design trends. Collaborate with marketing and product teams to deliver designs that resonate with target audiences and drive engagement. This internship provides a platform to showcase your creativity and refine your technical skills under the guidance of experienced designers. By the end of the program, you’ll have built a diverse portfolio of work that demonstrates your ability to create impactful visuals.",
+            "As an AI Research Intern, you will work on cutting-edge projects involving machine learning algorithms and artificial intelligence applications. Your responsibilities will include building and training models, analyzing data sets, and exploring innovative ways to solve complex problems. Collaborate with researchers and data scientists to develop AI solutions that have real-world impact, such as natural language processing, computer vision, or recommendation systems. You’ll gain experience with frameworks like TensorFlow, PyTorch, or scikit-learn, while also learning about ethical considerations in AI development. This role offers the opportunity to be part of a team driving advancements in a rapidly evolving field. By the end of the internship, you’ll have gained practical experience in AI and contributed to impactful projects.",
+            "Be part of our Cybersecurity Internship and learn how to protect systems from cyber threats in today’s digital age. You’ll assist in performing vulnerability assessments, monitoring network activity, and responding to potential security incidents. Gain hands-on experience with tools like Wireshark, Nessus, or Splunk, while learning about encryption, firewall management, and threat detection techniques. Collaborate with security experts to develop strategies for mitigating risks and ensuring compliance with industry standards. This internship provides a valuable opportunity to understand the critical role cybersecurity plays in protecting sensitive information. By the end of the program, you’ll have gained practical skills in securing systems and addressing modern cybersecurity challenges.",
+            "Contribute to our Web Development Internship by creating responsive and user-friendly websites that meet industry standards. You’ll work on front-end development using HTML, CSS, and JavaScript, as well as explore back-end technologies like Node.js or Django. Collaborate with designers and developers to ensure seamless user experiences and optimize website performance. Gain hands-on experience with version control systems like Git and learn about deployment processes using cloud platforms. This role is ideal for individuals passionate about web technologies and looking to build a strong foundation in development. By the end of the internship, you’ll have a portfolio of live projects that demonstrate your technical abilities.",
+            "Explore the world of cloud computing in our Cloud Computing Internship. Learn how to design and deploy scalable cloud architectures using platforms like AWS, Azure, or Google Cloud. You’ll assist in setting up virtual machines, managing storage solutions, and implementing security best practices. Work closely with cloud engineers to optimize resource usage and troubleshoot system issues. This role offers a hands-on experience in leveraging cloud-native technologies to build efficient and cost-effective systems. By the end of the internship, you’ll have gained valuable skills in cloud infrastructure management and a deeper understanding of modern computing paradigms.",
+            "Our Human Resources Internship provides a unique opportunity to develop skills in talent acquisition, employee engagement, and organizational development. Assist in crafting job descriptions, screening resumes, and coordinating interviews for various roles. You’ll also help organize training programs and team-building events to foster a positive workplace culture. Gain insight into HR policies, compliance, and best practices while working closely with experienced HR professionals. This internship is perfect for individuals interested in understanding the people side of business operations. By the end of the program, you’ll have developed strong interpersonal and organizational skills, preparing you for a career in human resources."
+    };
+
+    public String randomDescription() {
+        Random random = new Random();
+        return DETAILED_DESCRIPTIONS[random.nextInt(DETAILED_DESCRIPTIONS.length)];
+    }
+
+
+    private static final String[] DETAILED_STEPS_TO_APPLY = {
+            "Submit your updated resume and a tailored cover letter through our online application portal. Highlight your relevant experience and skills.",
+            "Complete a short online application form, including your personal details, educational background, and work experience.",
+            "Participate in an initial online assessment designed to evaluate your technical skills and problem-solving abilities. Instructions will be sent via email after application submission.",
+            "Schedule and attend a virtual interview with a member of our hiring team. Be prepared to discuss your past projects, career goals, and interest in the role.",
+            "Provide contact information for two professional references who can vouch for your skills and experience. We will contact them for a brief evaluation.",
+            "Complete a hands-on coding challenge or project submission relevant to the internship. You will have one week to complete and submit your work.",
+            "Participate in a panel interview with team members and potential mentors. This will include technical questions as well as behavioral and situational scenarios.",
+            "Attend an optional informational webinar to learn more about our internship program, work culture, and expectations.",
+            "Submit proof of enrollment in an educational institution or recent graduation (if applicable) to meet our internship eligibility requirements.",
+            "Receive an offer letter and complete the onboarding process, which includes signing a confidentiality agreement and setting up your work environment."
+    };
+
+    public String randomStepsToApply() {
+        Random random = new Random();
+        return DETAILED_STEPS_TO_APPLY[random.nextInt(DETAILED_STEPS_TO_APPLY.length)];
+    }
+
+
+    private static final String[] DETAILED_REQUIRED_KNOWLEDGE = {
+            "Proficiency in programming languages such as Java, Python, or C++ is essential. Candidates should have hands-on experience in writing efficient, maintainable code and be familiar with debugging techniques. Understanding software lifecycle processes, such as development, testing, and deployment, will give you an added advantage.",
+            "A strong grasp of front-end technologies, including HTML, CSS, and JavaScript, is required. Experience with modern frameworks such as React, Angular, or Vue.js will be beneficial. Knowledge of responsive design principles and cross-browser compatibility issues is a plus.",
+            "Solid understanding of data structures and algorithms is a must-have. Candidates should be able to analyze computational problems and implement optimal solutions efficiently. Experience in applying these concepts in real-world scenarios or competitive programming will be highly valued.",
+            "Experience with cloud platforms such as AWS, Azure, or Google Cloud is highly desirable. You should understand concepts like virtual machines, storage solutions, and serverless architectures. Familiarity with deploying and managing scalable applications in the cloud is a significant advantage.",
+            "A working knowledge of version control systems such as Git is crucial. You should be comfortable with using Git for collaboration, managing branches, and resolving conflicts in a team environment. Experience with platforms like GitHub or GitLab is a bonus.",
+            "Basic understanding of machine learning concepts and familiarity with tools like TensorFlow, PyTorch, or scikit-learn is preferred. Candidates should have experience in building and training models or a keen interest in exploring AI-driven solutions. Exposure to real-world machine learning projects will set you apart.",
+            "Strong familiarity with database systems, both relational (e.g., MySQL, PostgreSQL) and non-relational (e.g., MongoDB, Cassandra), is required. You should understand how to design schemas, write efficient queries, and optimize database performance. Experience with data migration and backup strategies is an added advantage.",
+            "Hands-on experience with data visualization tools such as Tableau, Power BI, or D3.js is a plus. You should be able to create compelling dashboards and reports to present complex data effectively. An eye for detail and a knack for storytelling with data are highly valued.",
+            "A solid foundation in cybersecurity principles, including encryption, network security, and vulnerability management, is essential. Experience with security tools and techniques, such as penetration testing or risk assessment, will give you an edge. Awareness of regulatory compliance and industry standards is advantageous.",
+            "Familiarity with Agile development methodologies and project management tools like Jira or Trello is preferred. You should understand how to work within iterative development cycles, participate in sprint planning, and track project progress effectively. Collaboration and adaptability are key traits for this role."
+    };
+
+    public String randomRequiredKnowledge() {
+        Random random = new Random();
+        return DETAILED_REQUIRED_KNOWLEDGE[random.nextInt(DETAILED_REQUIRED_KNOWLEDGE.length)];
+    }
+
+
+    private static final String[] SALARIES = {
+            "$15/hour", "$20/hour", "$25/hour", "$30/hour", "$1000/month",
+            "$1500/month", "$2000/month", "Unpaid"
+    };
+
+    public String randomSalary() {
+        Random random = new Random();
+        return SALARIES[random.nextInt(SALARIES.length)];
+    }
 
 }

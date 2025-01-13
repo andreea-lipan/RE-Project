@@ -4,6 +4,7 @@ import org.example.backend.model.Specialization;
 import org.example.backend.model.Student;
 import org.example.backend.model.UserRole;
 import org.example.backend.persistence.StudentRepository;
+import org.example.backend.services.MockDataService;
 import org.example.backend.services.StudentService;
 import org.example.backend.services.exceptions.RepoException;
 import org.example.backend.services.exceptions.ServiceException;
@@ -19,12 +20,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private MockDataService mockDataService;
 
     public void populate(){
         for(int i = 1; i <= 10; i++){
-            Student student = new Student("FirstName" + i, "LastName" + i,  Specialization.INFO_EN, null);
-            student.setEmail("email" + i + "@facultate.ro");
-            student.setPassword("parola" + i);
+            Student student = new Student();
+            student.setEmail("student" + i + "@facultate.ro");
+            student.setPassword("a");
+            student.setFirstname(mockDataService.randomFirstName());
+            student.setLastname(mockDataService.randomLastName());
+            student.setSpecialization(mockDataService.randomSpecialization());
+            student.setCv(null);
             student.setRole(UserRole.STUDENT);
             studentRepository.save(student);
         }

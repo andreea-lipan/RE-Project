@@ -10,6 +10,8 @@ import {CompanyNavbar} from "./CompanyNavbar";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import LinkIcon from '@mui/icons-material/Link';
+import {StudentNavbar} from "../students/StudentNavbar";
+import Storage from "../../utils/Storage";
 
 export const CompanyPage = () => {
 
@@ -26,6 +28,8 @@ export const CompanyPage = () => {
             })
     }, []);
 
+    const showStudentNavbar = Storage.getUserRole() === 'STUDENT';
+
     // todo figure out why the navbar works well, why does it stretch to max width
     return (
         <Box sx={{
@@ -34,7 +38,7 @@ export const CompanyPage = () => {
             backgroundImage: `url(${background})`,
             backgroundSize: 'cover',
         }}>
-            <CompanyNavbar/>
+            {showStudentNavbar ? <StudentNavbar /> : <CompanyNavbar />}
 
             <Container maxWidth="md"
                        sx={{

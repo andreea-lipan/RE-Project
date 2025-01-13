@@ -9,6 +9,9 @@ import SearchBar from "./SearchBar";
 import Storage from "../../utils/Storage";
 import {CompanyNavbar} from "../company/CompanyNavbar";
 import FilterDialog from "./FilterDialog";
+import background from "../../assets/backgroundRepeatable2.jpg";
+import TuneIcon from '@mui/icons-material/Tune';
+
 
 export const InternshipsPage = () => {
 
@@ -18,7 +21,8 @@ export const InternshipsPage = () => {
 
     const showStudentNavbar = Storage.getUserRole() === 'STUDENT';
 
-    //
+
+
     useEffect(() => {
         // loadInternships();
     }, []);
@@ -96,7 +100,12 @@ export const InternshipsPage = () => {
         };
 
     return (
-            <>
+        <Box sx={{
+            height: '100%',
+            paddingBottom: '20px',
+            backgroundImage: `url(${background})`,
+            backgroundRepeat: 'repeat'
+        }}>
                 <Grid2
                     container
                     direction="row"
@@ -120,7 +129,7 @@ export const InternshipsPage = () => {
                         elevation={6}
                         style={{
                             maxWidth: "60vw",
-                            backgroundColor: "#165A8B",
+                            backgroundColor: 'rgba(219, 219, 219, 0.85)',
                             width: "100%",
                             display: "flex",
                             flexDirection: "column",
@@ -136,7 +145,8 @@ export const InternshipsPage = () => {
                                 margin: "20px",
                             }}
                         >
-                            <Button onClick={handleFilterClick}>Filter</Button>
+                            <Button onClick={handleFilterClick}><TuneIcon sx={{color:'#165A8B'}}/></Button>
+
                             <SearchBar onSearch={handleSearch} />
                         </Box>
                         <InternshipsList internships={filteredInternships} />
@@ -148,6 +158,6 @@ export const InternshipsPage = () => {
                     onClose={handleFilterDialogClose}
                     onApplyFilters={applyFilters}
                 />
-            </>
+        </Box>
         );
     };

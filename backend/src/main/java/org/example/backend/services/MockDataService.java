@@ -1,5 +1,9 @@
 package org.example.backend.services;
 
+import org.example.backend.model.Specialization;
+
+import java.util.Date;
+
 public interface MockDataService {
     String randomCompanyName();
     String randomEmail();
@@ -11,4 +15,16 @@ public interface MockDataService {
     String randomLongDescription();
     String randomWorkplace();
     String randomPreviousInternships();
+    String randomFirstName();
+    String randomLastName();
+    Specialization randomSpecialization();
+    String randomInternshipName();
+    String randomLength();
+    String randomWorkType();
+    Date randomDeadline();
+    String randomLocation();
+    String randomDescription();
+    String randomStepsToApply();
+    String randomRequiredKnowledge();
+    String randomSalary();
 }

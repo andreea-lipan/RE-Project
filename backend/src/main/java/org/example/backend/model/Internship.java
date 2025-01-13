@@ -35,13 +35,13 @@ public class Internship {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "stepstoapply")
+    @Column(name = "stepstoapply", columnDefinition = "TEXT")
     private String stepsToApply;
 
-    @Column(name = "requiredknowledge")
+    @Column(name = "requiredknowledge", columnDefinition = "TEXT")
     private String requiredKnowledge;
 
     @Column(name = "salary")

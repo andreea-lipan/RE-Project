@@ -15,6 +15,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import {COMPANY_PAGE} from "../../utils/URLconstants";
+import {StudentNavbar} from "../students/StudentNavbar";
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -77,6 +78,8 @@ export const InternshipDetails = () => {
         navigate(COMPANY_PAGE(internship.companyId));
     }
 
+    const showStudentNavbar = Storage.getUserRole() === 'STUDENT';
+
     return (
         <>
             <Box sx={{
@@ -85,7 +88,7 @@ export const InternshipDetails = () => {
                 backgroundImage: `url(${background})`,
                 backgroundSize: 'cover',
             }}>
-                <CompanyNavbar/>
+                {showStudentNavbar ? <StudentNavbar /> : <CompanyNavbar />}
 
                 <Container maxWidth="md"
                            sx={{
@@ -123,7 +126,7 @@ export const InternshipDetails = () => {
                                 boxShadow: 3,
                                 marginBottom: -22,
                                 minHeight: '5vh',
-                                maxWidth: '400px',  // todo make it responsive
+                                maxWidth: '700px',  // todo make it responsive
                                 bgcolor: 'rgba(255, 255, 255, 1)',
                                 zIndex: 999,
                             }}>

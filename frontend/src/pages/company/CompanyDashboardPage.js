@@ -1,9 +1,11 @@
-import {Grid2, Paper} from "@mui/material";
+import {Grid2, Paper, Typography} from "@mui/material";
 import {CompanyNavbar} from "./CompanyNavbar";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {COMPANY_INTERNSHIPS, COMPANY_NEW_INTERNSHIP, COMPANY_PAGE} from "../../utils/URLconstants";
 import Storage from "../../utils/Storage";
+import background from "../../assets/backgroundRepeatable2.jpg";
+import Box from "@mui/material/Box";
 
 const CompanyDashboardCard = ({content, link, disabled}) => {
     const navigate = useNavigate();
@@ -28,7 +30,10 @@ const CompanyDashboardCard = ({content, link, disabled}) => {
                     minHeight: '20vh',
                 }}
             >
-                {content}
+                <Typography sx={{fontSize:'22px', fontFamily:'Montserrat, sans-serif'}}>
+                    {content}
+                </Typography>
+
             </Button>
         </Grid2>
     )
@@ -38,7 +43,11 @@ const CompanyDashboardCard = ({content, link, disabled}) => {
 export const CompanyDashboardPage = () => {
     const id = Storage.getUserId();
     return (
-        <>
+        <Box sx={{
+            height: '100vh',
+            backgroundImage: `url(${background})`,
+            backgroundRepeat: 'repeat'
+        }}>
             <Grid2 container
                    direction="row"
                    sx={{
@@ -57,12 +66,14 @@ export const CompanyDashboardPage = () => {
                 sx={{
                     justifyContent: "center",
                     alignItems: "center",
-                    marginBottom: "20px"
+                    marginBottom: "20px",
+
                 }}
             >
                 <Paper elevation={2} style={{
                     maxWidth: '65vw',
-                    backgroundColor: '#b3cfdb',
+                    backgroundColor: 'rgba(219, 219, 219, 0.85)',
+                    borderRadius: '15px',
                     width: '100%',
                 }}
                 >
@@ -79,6 +90,6 @@ export const CompanyDashboardPage = () => {
                     </Grid2>
                 </Paper>
             </Grid2>
-        </>
+        </Box>
     )
 }

@@ -22,11 +22,17 @@ public class InternshipServiceImpl implements InternshipService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    public Long randomCompanyId(){
+        List<Company> companies = companyRepository.findAll();
+        return companies.get((int)(Math.random()*companies.size())).getId();
+    }
+
     @Override
     public void populate(){
 
-        for(int i = 1; i <= 10; i++){
+        for(int i = 1; i <= 30; i++){
             Internship internship = new Internship("Internship" + i);
+            internship.setCompany(companyRepository.findById(randomCompanyId()).orElseThrow(() -> new RepoException("Company not found")));
             internship.setSalary(String.valueOf(1<<i));
             internship.setLength(String.valueOf(i));
             if(i%3==0)internship.setWorkType("Remote");

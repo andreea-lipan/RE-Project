@@ -47,6 +47,10 @@ public class Internship {
     @Column(name = "salary")
     private String salary;
 
+    @ManyToOne
+    @JoinColumn(name = "company_id", referencedColumnName = "user_id")
+    private Company company;
+
     public Internship() {}
 
     public Internship(String name) {

@@ -1,12 +1,16 @@
 package org.example.backend.services.impl;
 
+import org.example.backend.model.Company;
+import org.example.backend.model.DTOs.InternshipDTO;
 import org.example.backend.model.Internship;
+import org.example.backend.persistence.CompanyRepository;
 import org.example.backend.persistence.InternshipRepository;
 import org.example.backend.services.InternshipService;
 import org.example.backend.services.exceptions.RepoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +18,9 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Autowired
     private InternshipRepository internshipRepository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Override
     public void populate(){
@@ -34,13 +41,31 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    public void addInternship(Internship internship) {
+    public void addInternship(InternshipDTO internshipDTO) {
+        Internship internship = internshipDTO.toInternship();
+        Company company = companyRepository.findById(internshipDTO.getCompanyId()).orElseThrow(() -> new RepoException("Company not found"));
+        internship.setCompany(company);
         internshipRepository.save(internship);
     }
 
     @Override
-    public List<Internship> getAllInternships() {
-        return internshipRepository.findAll();
+    public List<InternshipDTO> getAllInternships() {
+        List<Internship> internships = internshipRepository.findAll();
+        List<InternshipDTO> internshipDTOS = new ArrayList<>();
+        for (Internship internship : internships) {
+            internshipDTOS.add(new InternshipDTO(internship));
+        }
+        return internshipDTOS;
+    }
+
+    @Override
+    public List<InternshipDTO> getAllInternshipsByCompanyId(Long companyId) {
+        List<Internship> internships = internshipRepository.findInternshipsByCompany_Id(companyId);
+        List<InternshipDTO> internshipDTOS = new ArrayList<>();
+        for (Internship internship : internships) {
+            internshipDTOS.add(new InternshipDTO(internship));
+        }
+        return internshipDTOS;
     }
 
     @Override

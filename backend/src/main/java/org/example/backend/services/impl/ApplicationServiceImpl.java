@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
@@ -38,12 +40,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public List<ApplicationDTO> getApplicationsByStudentId(Long studentId) {
         List<Application> applications = applicationRepository.findApplicationsByStudentId(studentId);
-        List<ApplicationDTO> applicationDTOS = new ArrayList<>();
-        for (Application application : applications) {
-            applicationDTOS.add(new ApplicationDTO(application));
-        }
 
-        return applicationDTOS;
+        return applications.stream()
+                .sorted(Comparator.comparing(Application::getApplicationDate).reversed())
+                .map(ApplicationDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override

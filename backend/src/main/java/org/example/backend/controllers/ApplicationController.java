@@ -31,7 +31,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/size")
-    public ResponseEntity<?> getConcurrentApplicants(@RequestBody Long internshipId) {
+    public ResponseEntity<?> getConcurrentApplicants(@RequestParam Long internshipId) {
         try {
             return ResponseEntity.ok(applicationService.getConcurrentApplicants(internshipId));
         } catch (Exception e) {

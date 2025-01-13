@@ -31,17 +31,31 @@ export const InternshipDetails = () => {
     const showButton = Storage.getUserRole() === "STUDENT";
     const [internship, setInternship] = useState({});
     const [hasApplied, setHasApplied] = useState(false);
+    const [concurrentApplicants, setConcurrentApplicants] = useState(0);
 
     const randomColor = getRandomColor();
 
     useEffect(() => {
         loadInternship();
+        loadConcurrentApplicants();
+        checkIfApplied()
     }, []);
 
     const loadInternship = () => {
         internshipService.getInternship(id)
             .then(response => response.data)
             .then(data => setInternship(data))
+            .catch(err => console.log(err));
+    }
+    const loadConcurrentApplicants = () => {
+        applicationService.getConcurrentApplicants(id)
+            .then(response => response.data)
+            .then(data => setConcurrentApplicants(data))
+            .catch(err => console.log(err));
+    }
+    const checkIfApplied = () => {
+        applicationService.checkIfApplied(id)
+            .then(data => setHasApplied(data))
             .catch(err => console.log(err));
     }
 
@@ -128,10 +142,10 @@ export const InternshipDetails = () => {
                                             sx={{
                                                 width: 50,
                                                 height: 50,
-                                                marginBottom: '-10px', //todo make company here
+                                                marginBottom: '-10px',
                                                 backgroundColor: randomColor
                                             }}>
-                                            {internship.name?.charAt(0).toUpperCase()}
+                                            {internship.companyName?.charAt(0).toUpperCase()}
                                         </Avatar>
                                     </IconButton>
                                 </Grid2>
@@ -317,7 +331,7 @@ export const InternshipDetails = () => {
                                                 color: '#000000',
                                                 paddingLeft: '20px',
                                             }}>
-                                                Applicants: 1
+                                                Applicants: {concurrentApplicants}
                                             </Typography>
                                         </Grid2>
                                     </Grid2>

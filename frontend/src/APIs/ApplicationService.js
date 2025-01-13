@@ -24,11 +24,26 @@ const updateApplication = (applicationId, status) => {
     return RequestInstance.put(APPLICATIONS_ENDPOINTS.APPLICATION_BY_ID(applicationId), {status});
 }
 
+const getConcurrentApplicants = (internshipId) => {
+    return RequestInstance.get(APPLICATIONS_ENDPOINTS.CONCURRENT_APPLICANTS(internshipId));
+}
+
+const checkIfApplied = (internshipId) => {
+    const studentId = Storage.getUserId();
+    return RequestInstance.get(APPLICATIONS_ENDPOINTS.APPLICATIONS_BY_STUDENT(studentId))
+        .then(res => res.data)
+        .then(data => {
+            return data.some(application => application.internshipId == internshipId);
+        });
+}
+
 const ApplicationService = {
     addApplication,
     getApplicationsByStudent,
     getApplicationsByInternship,
-    updateApplication
+    updateApplication,
+    getConcurrentApplicants,
+    checkIfApplied
 }
 
 export default ApplicationService;

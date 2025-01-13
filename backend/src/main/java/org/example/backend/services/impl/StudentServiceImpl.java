@@ -20,9 +20,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public void populate(){
-        for(int i = 1; i <= 10; i++){
-            Student student = new Student("FirstName" + i, "LastName" + i,  Specialization.INFO_EN, null);
+    public void populate() {
+        for (int i = 1; i <= 10; i++) {
+            Student student = new Student("FirstName" + i, "LastName" + i, Specialization.INFO_EN, null);
             student.setEmail("email" + i + "@facultate.ro");
             student.setPassword("parola" + i);
             student.setRole(UserRole.STUDENT);
@@ -57,7 +57,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudentById(Long id) {
-        return studentRepository.findById(id).orElseThrow(()->new RepoException("Student not found!"));
+        return studentRepository.findById(id).orElseThrow(() -> new RepoException("Student not found!"));
+    }
+
+    @Override
+    public Boolean hasCV(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RepoException("Student not found"));
+
+        return student.getCv() != null;
     }
 
 

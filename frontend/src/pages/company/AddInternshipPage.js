@@ -1,15 +1,24 @@
 import React, { useState } from "react";
-import { Grid2, Paper, Box, TextField, Button, MenuItem, Typography, TextareaAutosize } from "@mui/material";
-import {CompanyNavbar} from "./CompanyNavbar";
+import {
+    Grid2,
+    Paper,
+    Box,
+    TextField,
+    Button,
+    MenuItem,
+    Typography,
+    TextareaAutosize,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Storage from "../../utils/Storage";
+import axios from "axios";
+import {CompanyNavbar} from "./CompanyNavbar";
 
 export const AddInternshipPage = () => {
     const [internshipDetails, setInternshipDetails] = useState({
         name: "",
         length: "",
         workType: "",
-        deadline: null,
+        deadline: "",
         location: "",
         salary: "",
         description: "",
@@ -27,31 +36,63 @@ export const AddInternshipPage = () => {
         }));
     };
 
-    const handleDateChange = (date) => {
-        setInternshipDetails((prevDetails) => ({
-            ...prevDetails,
-            deadline: date,
-        }));
+    const validateDate = (date) => {
+        const regex = /^\d{2}\.\d{2}\.\d{4}$/;
+        return regex.test(date);
     };
 
-    const handleSubmit = () => {
-        // to do
-        console.log("Internship Submitted", internshipDetails);
+    const handleSubmit = async () => {
+        const { deadline } = internshipDetails;
+
+        // Validate date format
+        if (!validateDate(deadline)) {
+            alert("Please enter the deadline in the format dd.mm.yyyy.");
+            return;
+        }
+
+        // Convert dd.mm.yyyy to Date object
+        const [day, month, year] = deadline.split(".");
+        const formattedDate = new Date(year, month - 1, day); // JavaScript Date uses 0-based months
+
+        if (isNaN(formattedDate.getTime())) {
+            alert("Invalid date. Please check your input.");
+            return;
+        }
+
+        try {
+            const payload = {
+                ...internshipDetails,
+                deadline: formattedDate.toISOString(), // Convert to ISO format if the API expects it
+            };
+
+            const response = await axios.post("http://localhost:8080", payload);
+
+            if (response.status === 200 || response.status === 201) {
+                alert("Internship added successfully!");
+                navigate("/internships"); // Navigate to internships page after successful submission
+            } else {
+                alert("Failed to add internship. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error adding internship:", error);
+            alert("An error occurred while adding the internship.");
+        }
     };
 
     return (
         <>
+            {/* Navigation Bar */}
             <Grid2
-                                container
-                                direction="row"
-                                sx={{
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginBottom: "20px",
-                                }}
-                            >
-                                <CompanyNavbar/>
-                            </Grid2>
+                container
+                direction="row"
+                sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "20px",
+                }}
+            >
+                <CompanyNavbar/>
+            </Grid2>
 
             {/* Main Content */}
             <Grid2
@@ -98,7 +139,6 @@ export const AddInternshipPage = () => {
                         margin="normal"
                     />
 
-
                     {/* Work Type, Deadline, Location, Salary */}
                     <TextField
                         label="Work Type"
@@ -115,7 +155,15 @@ export const AddInternshipPage = () => {
                         <MenuItem value="Hybrid">Hybrid</MenuItem>
                     </TextField>
 
-//datepicker
+                    <TextField
+                        label="Application Deadline (dd.mm.yyyy)"
+                        variant="outlined"
+                        name="deadline"
+                        value={internshipDetails.deadline}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                    />
 
                     <TextField
                         label="Location"
@@ -185,10 +233,10 @@ export const AddInternshipPage = () => {
                         }}
                     />
 
-                    {/* Apply Button */}
+                    {/* Add Button */}
                     <Box sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
                         <Button variant="contained" color="primary" onClick={handleSubmit}>
-                            Apply
+                            Add
                         </Button>
                     </Box>
                 </Paper>

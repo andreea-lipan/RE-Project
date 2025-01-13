@@ -1,20 +1,28 @@
 import {useEffect, useState} from "react";
 import {ApplicantCard} from "./ApplicantCard";
+import applicationService from "../../../APIs/ApplicationService";
 
 export const ApplicantsList = ({internship}) => {
 
-    const [applicants, setApplicants] = useState([
-        { id: 1, name: 'John', status: 'Pending' },
-        { id: 2, name: 'Jane', status: 'Denied' },
-        { id: 3, name: 'Alice', status: 'Pending' },
-        { id: 4, name: 'Bob', status: 'Pending' },
-    ]);
+    const [applicants, setApplicants] = useState([]);
 
     const statusPriority = {
         Pending: 1,
         Accepted: 2,
-        Denied: 3,
+        Rejected: 3,
     };
+
+    useEffect(() => {
+        loadApplicants();
+    },[applicants]);
+
+    const loadApplicants = () => {
+        applicationService.getApplicationsByInternship(internship.id).then(response => {
+            setApplicants(response.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     useEffect(() => {
         const sortedApplicants = [...applicants].sort((a, b) => {
@@ -24,9 +32,12 @@ export const ApplicantsList = ({internship}) => {
     }, [applicants]);
 
     const updateApplicantStatus = (applicant, status) => {
-        // update applicant status
-        applicant = {...applicant, status: status};
-        setApplicants(applicants.map(a => a.id === applicant.id ? applicant : a));
+        applicationService.updateApplication(applicant.id, status).then(response => {
+            applicant = {...applicant, status: status};
+            setApplicants(applicants.map(a => a.id === applicant.id ? applicant : a));
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     return(

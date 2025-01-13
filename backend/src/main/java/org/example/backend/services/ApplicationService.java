@@ -1,6 +1,7 @@
 package org.example.backend.services;
 
-import org.example.backend.model.Application;
+import org.example.backend.model.DTOs.ApplicationDTO;
+import org.example.backend.model.DTOs.ApplicationUpdateRequest;
 
 import java.util.List;
 
@@ -8,7 +9,13 @@ public interface ApplicationService {
 
     void clear();
 
-    List<Application> getApplicationsByStudentId(Long student_id);
+    List<ApplicationDTO> getApplicationsByStudentId(Long studentId);
 
-    void addApplication(Application application);
+    void addApplication(ApplicationDTO applicationDTO);
+
+    void updateApplicationStatus(Long id, ApplicationUpdateRequest request);
+
+    List<ApplicationDTO> getApplicationsByInternshipId(Long internshipId);
+
+    Long getConcurrentApplicants(Long internshipId);
 }

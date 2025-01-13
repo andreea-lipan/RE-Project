@@ -7,168 +7,122 @@ import Button from "@mui/material/Button";
 import Storage from "../../utils/Storage";
 import {CompanyNavbar} from "../company/CompanyNavbar";
 
-const LocationLengthWorkMode = ({internship}) => {
+const LocationLengthWorkMode = ({ internship }) => {
     return (
-        <Grid2 container sx={{
-            marginTop: "30px",
-            justifyContent: "left",
-            alignItems: "left",
-        }}>
-
+        <Grid2 container sx={{ marginTop: "30px", justifyContent: "left", alignItems: "left" }}>
             <Grid2 size={4}>
-                <Typography variant="h5" sx={{fontFamily: 'Unna, sans-serif'}}>
+                <Typography variant="h5" sx={{ fontFamily: 'Unna, sans-serif' }}>
                     Duration:
                 </Typography>
             </Grid2>
             <Grid2 size={4}>
-                <Typography variant="h6" sx={{fontFamily: 'Unna, sans-serif'}}>
-                    {internship.name}
+                <Typography variant="h6" sx={{ fontFamily: 'Unna, sans-serif' }}>
+                    {internship.length}
                 </Typography>
             </Grid2>
-            <Grid2 size={4}/>
-
-            <Grid2 size={12} marginTop={"10px"}/>
-
+            <Grid2 size={4} />
+            <Grid2 size={12} marginTop={"10px"} />
             <Grid2 size={4}>
-                <Typography variant="h5" sx={{fontFamily: 'Unna, sans-serif'}}>
+                <Typography variant="h5" sx={{ fontFamily: 'Unna, sans-serif' }}>
                     Location:
                 </Typography>
             </Grid2>
             <Grid2 size={4}>
-                <Typography variant="h6" sx={{fontFamily: 'Unna, sans-serif'}}>
-                    {internship.name}
+                <Typography variant="h6" sx={{ fontFamily: 'Unna, sans-serif' }}>
+                    {internship.location}
                 </Typography>
             </Grid2>
-            <Grid2 size={4}/>
-
-            <Grid2 size={12} marginTop={"10px"}/>
-
+            <Grid2 size={4} />
+            <Grid2 size={12} marginTop={"10px"} />
             <Grid2 size={4}>
-                <Typography variant="h5" sx={{fontFamily: 'Unna, sans-serif'}}>
+                <Typography variant="h5" sx={{ fontFamily: 'Unna, sans-serif' }}>
                     Work Mode:
                 </Typography>
             </Grid2>
             <Grid2 size={4}>
-                <Typography variant="h6" sx={{fontFamily: 'Unna, sans-serif'}}>
-                    {internship.name}
+                <Typography variant="h6" sx={{ fontFamily: 'Unna, sans-serif' }}>
+                    {internship.workType}
                 </Typography>
             </Grid2>
-            <Grid2 size={4}/>
-
+            <Grid2 size={4} />
         </Grid2>
     )
 }
 
 export const InternshipDetails = () => {
-
-    const {id} = useParams();
-
+    const { id } = useParams();
     const showButton = Storage.getUserRole() === "STUDENT";
-
     const [internship, setInternship] = useState({});
+    const [hasApplied, setHasApplied] = useState(false);
 
-    const description =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lacinia eros. Nulla tempus, augue vel dictum accumsan, neque purus placerat metus, vitae venenatis erat sem vitae lorem." +
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lacinia eros. Nulla tempus, augue vel dictum accumsan, neque purus placerat metus, vitae venenatis erat sem vitae lorem." +
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lacinia eros. Nulla tempus, augue vel dictum accumsan, neque purus placerat metus, vitae venenatis erat sem vitae lorem." +
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lacinia eros. Nulla tempus, augue vel dictum accumsan, neque purus placerat metus, vitae venenatis erat sem vitae lorem." +
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lacinia eros. Nulla tempus, augue vel dictum accumsan, neque purus placerat metus, vitae venenatis erat sem vitae lorem.";
-
-    const shortDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n Sed ut lacinia eros.\n Nulla tempus, augue vel dictum accumsan, neque purus placerat metus, vitae venenatis erat sem vitae lorem.";
-    const shortestDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+    const shortestDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac"
 
     useEffect(() => {
         loadInternship();
     }, []);
 
     const loadInternship = () => {
-        internshipService.getInternship(id).then(response => {
-            return response.data;
-        }).then(data => {
-            setInternship(data);
-        }).catch(err => {
-            console.log(err);
-        })
+        internshipService.getInternship(id)
+            .then(response => response.data)
+            .then(data => setInternship(data))
+            .catch(err => console.log(err));
     }
 
-    const handleApply = () => {
-        console.log("Apply to internship")
-    }
+    const handleApply = async () => {
+        const studentId = Storage.getUserId(); // Retrieve the current student's ID
+        const payload = {
+            application: {
+                studentId: studentId,
+                internshipId: id,
+            }
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/applications', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+                setHasApplied(true);
+                console.log("Application successful!");
+            } else {
+                console.error("Failed to apply:", response.status);
+            }
+        } catch (err) {
+            console.error("Error while applying:", err);
+        }
+    };
 
     return (
         <>
-            <Grid2 container
-                   direction="row"
-                   sx={{
-                       justifyContent: "center",
-                       alignItems: "center",
-                       marginBottom: "20px",
-                   }}
-            >
-                {showButton ?
-                    <StudentNavbar/> : <CompanyNavbar/>
-                }
+            <Grid2 container direction="row" sx={{ justifyContent: "center", alignItems: "center", marginBottom: "20px" }}>
+                {showButton ? <StudentNavbar /> : <CompanyNavbar />}
             </Grid2>
-            <br/>
-
-            <Grid2
-                container
-                direction="row"
-                sx={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginBottom: "20px"
-                }}
-            >
-                <Paper elevation={2} style={{
-                    minHeight: '90vh',
-                    maxWidth: '62vw',
-                    backgroundColor: '#b3cfdb',
-                    width: '100%',
-                }}
-                >
-                    <Paper elevation={4} style={{
-                        minHeight: '85vh',
-                        maxWidth: '60vw',
-                        backgroundColor: '#4ca4e6',
-                        width: '100%',
-                        margin: '20px'
-                    }}
-                    >
-
-                        <Grid2 container sx={{
-                            justifyContent: "left",
-                            alignItems: "left",
-                            margin: "20px",
-                        }}>
+            <br />
+            <Grid2 container direction="row" sx={{ justifyContent: "center", alignItems: "center", marginBottom: "20px" }}>
+                <Paper elevation={2} style={{ minHeight: '90vh', maxWidth: '62vw', backgroundColor: '#b3cfdb', width: '100%' }}>
+                    <Paper elevation={4} style={{ minHeight: '85vh', maxWidth: '60vw', backgroundColor: '#4ca4e6', width: '100%', margin: '20px' }}>
+                        <Grid2 container sx={{ justifyContent: "left", alignItems: "left", margin: "20px" }}>
                             <Grid2 size={2}>
-                                <Typography variant="h4" sx={{fontFamily: 'Unna, sans-serif'}}>
+                                <Typography variant="h4" sx={{ fontFamily: 'Unna, sans-serif' }}>
                                     {internship.name}
                                 </Typography>
                             </Grid2>
-                            <Grid2 size={10}/>
-
-                            <Grid2 size={3} sx={{marginTop: "20px"}}>
-                                <Avatar
-                                    sx={{
-                                        width: 150,
-                                        height: 150,
-                                    }}
-                                >
-                                    C
-                                </Avatar>
+                            <Grid2 size={10} />
+                            <Grid2 size={3} sx={{ marginTop: "20px" }}>
+                                <Avatar sx={{ width: 150, height: 150 }}>C</Avatar>
                             </Grid2>
                             <Grid2 size={8}>
-                                <LocationLengthWorkMode internship={internship}/>
+                                <LocationLengthWorkMode internship={internship} />
                             </Grid2>
-                            <Grid2 size={1}/>
-
-                            <Grid2 size={12} sx={{marginTop: "30px"}}>
+                            <Grid2 size={1} />
+                            <Grid2 size={12} sx={{ marginTop: "30px" }}>
                                 <Typography variant="body1">
-                                    {description}
+                                    {internship.description}
                                 </Typography>
                             </Grid2>
-
                             <Grid2 size={4} sx={{marginTop: "30px"}}>
                                 <Typography variant="h4">
                                     Required Knowledge
@@ -177,7 +131,7 @@ export const InternshipDetails = () => {
                             <Grid2 size={8}/>
                             <Grid2 size={12} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
-                                    {shortDesc}
+                                    {internship.requiredKnowledge}
                                 </Typography>
                             </Grid2>
 
@@ -189,7 +143,7 @@ export const InternshipDetails = () => {
                             <Grid2 size={8}/>
                             <Grid2 size={12} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
-                                    {shortDesc}
+                                    {internship.stepsToApply}
                                 </Typography>
                             </Grid2>
 
@@ -201,7 +155,7 @@ export const InternshipDetails = () => {
                             <Grid2 size={8}/>
                             <Grid2 size={5} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
-                                    {shortestDesc}
+                                    {internship.salary}
                                 </Typography>
                             </Grid2>
                             <Grid2 size={7}/>
@@ -214,7 +168,7 @@ export const InternshipDetails = () => {
                             <Grid2 size={8}/>
                             <Grid2 size={5} sx={{marginTop: "15px"}}>
                                 <Typography variant="body1">
-                                    {shortestDesc}
+                                    0
                                 </Typography>
                             </Grid2>
                             <Grid2 size={7}/>
@@ -235,29 +189,26 @@ export const InternshipDetails = () => {
                             </Grid2>
                             <Grid2 size={7}/>
 
-                            <Grid2 size={12} sx={{margin: "15px"}}>
+                            <Grid2 size={12} sx={{ margin: "15px" }}>
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    style={{marginTop: '20px', width: '50%'}}
+                                    style={{ marginTop: '20px', width: '50%' }}
                                     onClick={handleApply}
-                                    disabled={!showButton}
+                                    disabled={!showButton || hasApplied}
                                     sx={{
                                         marginTop: '20px',
                                         bgcolor: '#165A8B',
-                                        '&:hover': {bgcolor: '#6883ad'},
+                                        '&:hover': { bgcolor: '#6883ad' },
                                     }}
                                 >
-                                    Apply
+                                    {hasApplied ? "Applied" : "Apply"}
                                 </Button>
                             </Grid2>
                         </Grid2>
-
                     </Paper>
                 </Paper>
             </Grid2>
         </>
     )
-
-
 }

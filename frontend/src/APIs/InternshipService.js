@@ -1,5 +1,6 @@
 import {RequestInstance} from "./RequestInstance";
 import {INTERNSHIPS_ENDPOINTS} from "./Endpoints";
+import Storage from "../utils/Storage";
 
 
 const getInternships = () => {
@@ -11,6 +12,8 @@ const getInternship = (id) => {
 }
 
 const addInternship = (internship) => {
+    const companyId = Storage.getUserId()
+    internship = {...internship, companyId}
     return RequestInstance.post(INTERNSHIPS_ENDPOINTS.ADD_INTERNSHIP, internship)
 }
 

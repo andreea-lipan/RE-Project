@@ -6,6 +6,7 @@ import {StudentNavbar} from "../students/StudentNavbar";
 import Button from "@mui/material/Button";
 import Storage from "../../utils/Storage";
 import {CompanyNavbar} from "../company/CompanyNavbar";
+import applicationService from "../../APIs/ApplicationService";
 
 const LocationLengthWorkMode = ({ internship }) => {
     return (
@@ -68,31 +69,15 @@ export const InternshipDetails = () => {
             .catch(err => console.log(err));
     }
 
-    const handleApply = async () => {
-        const studentId = Storage.getUserId(); // Retrieve the current student's ID
-        const payload = {
-            application: {
-                studentId: studentId,
-                internshipId: id,
-            }
-        };
-
-        try {
-            const response = await fetch('http://localhost:8080/applications', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            });
-
-            if (response.ok) {
+    const handleApply =  () => {
+        applicationService.addApplication(id).then( response => {
+            if (response.status === 200) {
                 setHasApplied(true);
                 console.log("Application successful!");
             } else {
                 console.error("Failed to apply:", response.status);
             }
-        } catch (err) {
-            console.error("Error while applying:", err);
-        }
+        }).catch(err => console.log(err));
     };
 
     return (

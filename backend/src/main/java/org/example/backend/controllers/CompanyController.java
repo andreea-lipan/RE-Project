@@ -3,10 +3,7 @@ package org.example.backend.controllers;
 import org.example.backend.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -20,6 +17,15 @@ public class CompanyController {
     public ResponseEntity<?> getAllCompanies() {
         try {
             return ResponseEntity.ok(companyService.getAllCompanies());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getCompanyById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(companyService.getCompanyById(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

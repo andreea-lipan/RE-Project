@@ -3,6 +3,7 @@ import {CompanyNavbar} from "./CompanyNavbar";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {COMPANY_INTERNSHIPS, COMPANY_NEW_INTERNSHIP, COMPANY_PAGE} from "../../utils/URLconstants";
+import Storage from "../../utils/Storage";
 
 const CompanyDashboardCard = ({content, link, disabled}) => {
     const navigate = useNavigate();
@@ -35,6 +36,7 @@ const CompanyDashboardCard = ({content, link, disabled}) => {
 
 
 export const CompanyDashboardPage = () => {
+    const id = Storage.getUserId();
     return (
         <>
             <Grid2 container
@@ -71,7 +73,7 @@ export const CompanyDashboardPage = () => {
                     }}>
                         <CompanyDashboardCard content="Ongoing Internships" link={COMPANY_INTERNSHIPS}/>
                         <CompanyDashboardCard content="Add New Internship" link={COMPANY_NEW_INTERNSHIP}/>
-                        <CompanyDashboardCard content="Company Page" link={COMPANY_PAGE}/>
+                        <CompanyDashboardCard content="Company Page" link={COMPANY_PAGE(id)}/>
                         <CompanyDashboardCard content="Company Account" disabled={true}/>
                         <CompanyDashboardCard content="Archived Internships" disabled={true}/>
                     </Grid2>

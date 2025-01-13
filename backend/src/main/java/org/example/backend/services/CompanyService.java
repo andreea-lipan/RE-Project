@@ -1,5 +1,6 @@
 package org.example.backend.services;
 
+
 import org.example.backend.model.Company;
 import org.example.backend.model.Student;
 
@@ -12,4 +13,6 @@ public interface CompanyService {
     void clear();
 
     List<Company> getAllCompanies();
+
+    Company getCompanyById(Long id);
 }

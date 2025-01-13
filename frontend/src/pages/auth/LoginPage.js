@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import authService from "../../APIs/AuthService";
 import {useNavigate} from "react-router-dom";
-import {COMPANY_DASHBOARD, STUDENT_DASHBOARD} from "../../utils/URLconstants";
+import {COMPANY_DASHBOARD, COMPANY_REGISTER, STUDENT_DASHBOARD} from "../../utils/URLconstants";
 import Storage from "../../utils/Storage";
 import LoginBackground from '../../assets/background.jpg'
 import '@fontsource/unna';
@@ -53,6 +53,10 @@ export const LoginPage = () => {
             navigateCallback()
         }
     }, [])
+
+    const navigateRegister = () => {
+        navigate(COMPANY_REGISTER)
+    }
 
 
     return (
@@ -132,6 +136,23 @@ export const LoginPage = () => {
                     >
                         Login
                     </Button>
+
+                    <Typography component="h1"  sx={{
+                        marginTop: '10px',
+                        fontSize: '14px',
+                    }}>
+                        Are you a company?
+                        <Button
+                            variant="text"
+                            color="primary"
+                            style={{marginLeft: '5px'}}
+                            sx={{
+                                textTransform: 'none'
+                            }}
+                            onClick={navigateRegister}>
+                            Register here
+                        </Button>
+                    </Typography>
 
                     {errorMsg ?
                         <Typography component="h1" color="error" sx={{

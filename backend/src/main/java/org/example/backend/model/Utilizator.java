@@ -3,11 +3,13 @@ package org.example.backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@SuperBuilder // make cool chainigng
 public class Utilizator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

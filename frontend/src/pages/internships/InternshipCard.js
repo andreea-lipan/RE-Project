@@ -2,6 +2,7 @@ import React from 'react';
 import {Avatar, Card, CardActionArea, CardContent, Grid2, Typography} from "@mui/material";
 import TimerIcon from '@mui/icons-material/Timer';
 import PaidIcon from '@mui/icons-material/Paid';
+import PlaceIcon from '@mui/icons-material/Place';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import {useNavigate} from "react-router-dom";
 import {INTERNSHIP_DETAILS} from "../../utils/URLconstants";
@@ -67,7 +68,7 @@ export const InternshipCard = ({internship}) => {
 
                         <Grid2 size={1}/>
                         <Grid2 size={1}>
-                            <BusinessCenterIcon/>
+                            <PlaceIcon/>
                         </Grid2>
                         <Grid2 size={1}>
                             {internship.location}

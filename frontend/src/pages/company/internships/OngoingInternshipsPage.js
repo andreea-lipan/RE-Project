@@ -13,7 +13,7 @@ export const OngoingInternshipsPage = () => {
     }, []);
 
     const loadInternships = () => {
-        internshipService.getInternships().then(response => {
+        internshipService.getOngoingInternships().then(response => {
             setInternships(response.data)
         }).catch(err => {
             console.log(err)
@@ -39,8 +39,7 @@ export const OngoingInternshipsPage = () => {
                 direction="row"
                 sx={{
                     justifyContent: "center",
-                    alignItems: "center",
-                    height: "100vh",
+                    marginBottom: "20px"
                 }}
             >
                 <Paper elevation={6} style={{

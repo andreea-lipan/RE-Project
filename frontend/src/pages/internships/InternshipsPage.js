@@ -114,8 +114,6 @@ export const InternshipsPage = () => {
                     direction="row"
                     sx={{
                         justifyContent: "center",
-                        alignItems: "center",
-                        height: "100vh",
                     }}
                 >
                     <Paper

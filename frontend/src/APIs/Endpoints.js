@@ -4,6 +4,7 @@ const BASE_URL = "http://localhost:8080"
 
 export const INTERNSHIPS_ENDPOINTS = {
     INTERNSHIPS: `${BASE_URL}/internships`,
+    ONGOING_INTERNSHIPS: (id) => `${BASE_URL}/internships?companyId=${id}`,
     INTERNSHIP_BY_ID: (id) => `${BASE_URL}/internships/${id}`,
     ADD_INTERNSHIP: `${BASE_URL}/internships`
 }

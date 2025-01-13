@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {Box, Button, Grid2, MenuItem, Paper, TextareaAutosize, TextField, Typography,} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {CompanyNavbar} from "./CompanyNavbar";
-import internshipService from "../../APIs/InternshipService";
-import {COMPANY_DASHBOARD} from "../../utils/URLconstants";
+import {CompanyNavbar} from "../CompanyNavbar";
+import internshipService from "../../../APIs/InternshipService";
+import {COMPANY_DASHBOARD} from "../../../utils/URLconstants";
 
 export const AddInternshipPage = () => {
     const [internshipDetails, setInternshipDetails] = useState({

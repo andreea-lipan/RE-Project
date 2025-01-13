@@ -28,7 +28,6 @@ export const CompanyInternshipCard = ({internship}) => {
                 backgroundColor: '#f5f5f5',
                 textAlign: 'left',
                 maxWidth: '80vw',
-                cursor:'cell'
             }}
             elevation={2}
         >

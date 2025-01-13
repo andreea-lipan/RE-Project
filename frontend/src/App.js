@@ -27,6 +27,7 @@ function App() {
             <Route path='/' element={<CustomRoute roles={['STUDENT','COMPANY']}/>}>
                 <Route path="internships" element={<InternshipsPage/>}/>
                 <Route path="internship-details/:id" element={<InternshipDetails/>}/>
+                <Route path="company-page/:id" element={<CompanyPage/>}/>
             </Route>
 
             {/*student content*/}
@@ -39,7 +40,6 @@ function App() {
             <Route path='/company' element={<CustomRoute roles={['COMPANY']}/>}>
                 <Route path="dashboard" element={<CompanyDashboardPage/>}/>
                 <Route path="internships" element={<OngoingInternshipsPage/>}/>
-                <Route path="page/:id" element={<CompanyPage/>}/>
                 <Route path="new-internship" element={<AddInternshipPage/>}/>
             </Route>
 

@@ -12,5 +12,5 @@ public interface InternshipService {
 
     List<InternshipDTO> getAllInternshipsByCompanyId(Long companyId);
 
-    Internship getInternshipById(Long id);
+    InternshipDTO getInternshipById(Long id);
 }

@@ -1,61 +1,37 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import internshipService from "../../APIs/InternshipService";
-import {Avatar, Grid2, Paper, Typography} from "@mui/material";
-import {StudentNavbar} from "../students/StudentNavbar";
+import {Avatar, Container, Grid2, IconButton, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import Storage from "../../utils/Storage";
 import {CompanyNavbar} from "../company/CompanyNavbar";
+import background from "../../assets/background.jpg";
+import Box from "@mui/material/Box";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import internshipBackground from "../../assets/team.jpg";
+import StraightenIcon from '@mui/icons-material/Straighten';
+import WorkIcon from '@mui/icons-material/Work';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import NumbersIcon from '@mui/icons-material/Numbers';
+import {COMPANY_PAGE} from "../../utils/URLconstants";
 
-const LocationLengthWorkMode = ({ internship }) => {
-    return (
-        <Grid2 container sx={{ marginTop: "30px", justifyContent: "left", alignItems: "left" }}>
-            <Grid2 size={4}>
-                <Typography variant="h5" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                    Duration:
-                </Typography>
-            </Grid2>
-            <Grid2 size={4}>
-                <Typography variant="h6" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                    {internship.length}
-                </Typography>
-            </Grid2>
-            <Grid2 size={4} />
-            <Grid2 size={12} marginTop={"10px"} />
-            <Grid2 size={4}>
-                <Typography variant="h5" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                    Location:
-                </Typography>
-            </Grid2>
-            <Grid2 size={4}>
-                <Typography variant="h6" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                    {internship.location}
-                </Typography>
-            </Grid2>
-            <Grid2 size={4} />
-            <Grid2 size={12} marginTop={"10px"} />
-            <Grid2 size={4}>
-                <Typography variant="h5" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                    Work Mode:
-                </Typography>
-            </Grid2>
-            <Grid2 size={4}>
-                <Typography variant="h6" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                    {internship.workType}
-                </Typography>
-            </Grid2>
-            <Grid2 size={4} />
-        </Grid2>
-    )
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 export const InternshipDetails = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const showButton = Storage.getUserRole() === "STUDENT";
     const [internship, setInternship] = useState({});
     const [hasApplied, setHasApplied] = useState(false);
 
-    const shortestDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac"
+    const randomColor = getRandomColor();
 
     useEffect(() => {
         loadInternship();
@@ -80,7 +56,7 @@ export const InternshipDetails = () => {
         try {
             const response = await fetch('http://localhost:8080/applications', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload),
             });
 
@@ -95,120 +71,407 @@ export const InternshipDetails = () => {
         }
     };
 
+    const navigate = useNavigate();
+    const handleAvatarClick = () => {
+        console.log(internship)
+        navigate(COMPANY_PAGE(internship.companyId));
+    }
+
     return (
         <>
-            <Grid2 container direction="row" sx={{ justifyContent: "center", alignItems: "center", marginBottom: "20px" }}>
-                {showButton ? <StudentNavbar /> : <CompanyNavbar />}
-            </Grid2>
-            <br />
-            <Grid2 container direction="row" sx={{ justifyContent: "center", alignItems: "center", marginBottom: "20px" }}>
-                <Paper elevation={2} style={{ minHeight: '90vh', maxWidth: '62vw', backgroundColor: '#b3cfdb', width: '100%' }}>
-                    <Paper elevation={4} style={{ minHeight: '85vh', maxWidth: '60vw', backgroundColor: '#4ca4e6', width: '100%', margin: '20px' }}>
-                        <Grid2 container sx={{ justifyContent: "left", alignItems: "left", margin: "20px" }}>
-                            <Grid2 size={2}>
-                                <Typography variant="h4" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                                    {internship.name}
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={10} />
-                            <Grid2 size={3} sx={{ marginTop: "20px" }}>
-                                <Avatar sx={{ width: 150, height: 150 }}>C</Avatar>
-                            </Grid2>
-                            <Grid2 size={8}>
-                                <LocationLengthWorkMode internship={internship} />
-                            </Grid2>
-                            <Grid2 size={1} />
-                            <Grid2 size={12} sx={{ marginTop: "30px" }}>
-                                <Typography variant="body1">
-                                    {internship.description}
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={4} sx={{marginTop: "30px"}}>
-                                <Typography variant="h4">
-                                    Required Knowledge
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={8}/>
-                            <Grid2 size={12} sx={{marginTop: "15px"}}>
-                                <Typography variant="body1">
-                                    {internship.requiredKnowledge}
-                                </Typography>
+            <Box sx={{
+                height: '100%',
+                paddingBottom: '20px',
+                backgroundImage: `url(${background})`,
+                backgroundSize: 'cover',
+            }}>
+                <CompanyNavbar/>
+
+                <Container maxWidth="md"
+                           sx={{
+                               paddingBottom: '20px',
+                               minHeight: '90vh',
+                               // bgcolor: 'white',
+                               paddingTop: '20px',
+                               marginTop: '20px',
+                               borderRadius: 2,
+                           }}>
+
+                    {/* Internship background*/}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: 3,
+                            borderRadius: 2,
+                            boxShadow: 3,
+                            backgroundImage: `url(${internshipBackground})`,
+                            backgroundPosition: '50% 30%',
+                            backgroundSize: 'cover',
+                            // bgcolor: '#165A8B',
+                            height: '15vh',
+
+                        }}>
+
+                        <Box
+                            sx={{
+                                padding: 2,
+                                paddingX: 3,
+                                borderRadius: 2,
+                                boxShadow: 3,
+                                marginBottom: -22,
+                                minHeight: '5vh',
+                                maxWidth: '400px',  // todo make it responsive
+                                bgcolor: 'rgba(255, 255, 255, 1)',
+                                zIndex: 999,
+                            }}>
+
+                            <Grid2
+                                container //todo fix these icons for resizable pages
+                                direction="row"
+                                alignItems="center"
+                                spacing={2}
+                            >
+                                <Grid2 item>
+                                    <IconButton onClick={handleAvatarClick}
+                                            sx={{
+                                                padding: 0
+                                            }}>
+                                        <Avatar
+                                            sx={{
+                                                width: 50,
+                                                height: 50,
+                                                marginBottom: '-10px', //todo make company here
+                                                backgroundColor: randomColor
+                                            }}>
+                                            {internship.name?.charAt(0).toUpperCase()}
+                                        </Avatar>
+                                    </IconButton>
+                                </Grid2>
+
+                                <Grid2 item>
+                                    <Typography sx={{
+                                        fontSize: '40px',
+                                        fontFamily: 'Unna, sans-serif',
+                                        paddingTop: '10px',
+                                        color: '#000000'
+                                    }}>
+                                        {internship.name}
+                                    </Typography>
+                                </Grid2>
                             </Grid2>
 
-                            <Grid2 size={4} sx={{marginTop: "30px"}}>
-                                <Typography variant="h4">
-                                    Steps to apply
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={8}/>
-                            <Grid2 size={12} sx={{marginTop: "15px"}}>
-                                <Typography variant="body1">
-                                    {internship.stepsToApply}
-                                </Typography>
-                            </Grid2>
 
-                            <Grid2 size={4} sx={{marginTop: "15px"}}>
-                                <Typography variant="h4">
-                                    Salary Information
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={8}/>
-                            <Grid2 size={5} sx={{marginTop: "15px"}}>
-                                <Typography variant="body1">
-                                    {internship.salary}
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={7}/>
+                        </Box>
 
-                            <Grid2 size={4} sx={{marginTop: "15px"}}>
-                                <Typography variant="h4">
-                                    Number of current applicants
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={8}/>
-                            <Grid2 size={5} sx={{marginTop: "15px"}}>
-                                <Typography variant="body1">
-                                    0
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={7}/>
+                    </Box>
 
-                            <Grid2 size={4} sx={{marginTop: "15px"}}>
-                                <Typography variant="h4">
-                                    Contact
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={8}/>
-                            <Grid2 size={5} sx={{marginTop: "15px"}}>
-                                <Typography variant="body1">
-                                    {shortestDesc}
-                                </Typography>
-                                <Typography variant="body1">
-                                    {shortestDesc}
-                                </Typography>
-                            </Grid2>
-                            <Grid2 size={7}/>
+                    {/* Internship details */}
+                    <Container sx={{
+                        padding: '20px',
+                        bgcolor: 'rgba(219, 219, 219, 0.75)',
+                        marginTop: '20px',
+                        borderRadius: 2,
 
-                            <Grid2 size={12} sx={{ margin: "15px" }}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    style={{ marginTop: '20px', width: '50%' }}
-                                    onClick={handleApply}
-                                    disabled={!showButton || hasApplied}
+                    }}>
+
+                        {/* Internship tiny details */}
+                        <Grid2 container
+                               spacing={4}
+                               justifyContent="center"
+                               sx={{
+                                   // marginTop: '-25px'
+                               }}>
+                            <Grid2 item>
+                                <Box
                                     sx={{
-                                        marginTop: '20px',
-                                        bgcolor: '#165A8B',
-                                        '&:hover': { bgcolor: '#6883ad' },
-                                    }}
-                                >
-                                    {hasApplied ? "Applied" : "Apply"}
-                                </Button>
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        paddingX: 3,
+                                        paddingTop: 1,
+                                        borderRadius: 2,
+                                        boxShadow: 3,
+                                        bgcolor: 'rgba(255, 255, 255, 1)',
+                                        minHeight: '13vh',
+                                    }}>
+
+
+                                    {/* Deadline */}
+                                    <Grid2
+                                        container //todo fix these icons for resizable pages
+                                        direction="row">
+                                        <Grid2 item>
+                                            <CalendarMonthIcon/>
+                                        </Grid2>
+
+                                        <Grid2 item>
+                                            <Typography sx={{
+                                                fontSize: '16px',
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: '#000000',
+                                                paddingLeft: '20px',
+                                            }}>
+                                                Deadline: {internship.deadline}
+                                            </Typography>
+                                        </Grid2>
+                                    </Grid2>
+
+                                    {/* Length */}
+                                    <Grid2
+                                        container //todo fix these icons for resizable pages
+                                        direction="row">
+                                        <Grid2 item>
+                                            <StraightenIcon/>
+                                        </Grid2>
+
+                                        <Grid2 item>
+                                            <Typography sx={{
+                                                fontSize: '16px',
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: '#000000',
+                                                paddingLeft: '20px',
+                                            }}>
+                                                Length: {internship.length} weeks
+                                            </Typography>
+                                        </Grid2>
+                                    </Grid2>
+
+                                    {/* Salary */}
+                                    <Grid2
+                                        container //todo fix these icons for resizable pages
+                                        direction="row">
+                                        <Grid2 item>
+                                            <PaymentsIcon/>
+                                        </Grid2>
+
+                                        <Grid2 item>
+                                            <Typography sx={{
+                                                fontSize: '16px',
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: '#000000',
+                                                paddingLeft: '20px',
+                                            }}>
+                                                Salary: {internship.salary} €
+                                            </Typography>
+                                        </Grid2>
+                                    </Grid2>
+
+                                </Box>
+                            </Grid2>
+
+                            <Grid2 item>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        paddingX: 3,
+                                        paddingTop: 1,
+                                        borderRadius: 2,
+                                        boxShadow: 3,
+                                        bgcolor: 'rgba(255, 255, 255, 1)',
+                                        minHeight: '13vh',
+                                    }}>
+
+
+                                    {/* Deadline */}
+                                    <Grid2
+                                        container //todo fix these icons for resizable pages
+                                        direction="row">
+                                        <Grid2 item>
+                                            <WorkIcon/>
+                                        </Grid2>
+
+                                        <Grid2 item>
+                                            <Typography sx={{
+                                                fontSize: '16px',
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: '#000000',
+                                                paddingLeft: '20px',
+                                            }}>
+                                                Work type: {internship.workType}
+                                            </Typography>
+                                        </Grid2>
+                                    </Grid2>
+
+                                    {/* Length */}
+                                    <Grid2
+                                        container //todo fix these icons for resizable pages
+                                        direction="row">
+                                        <Grid2 item>
+                                            <LocationOnIcon/>
+                                        </Grid2>
+
+                                        <Grid2 item>
+                                            <Typography sx={{
+                                                fontSize: '16px',
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: '#000000',
+                                                paddingLeft: '20px',
+                                            }}>
+                                                {internship.location}
+                                            </Typography>
+                                        </Grid2>
+                                    </Grid2>
+
+                                    {/* Length */}
+                                    <Grid2
+                                        container //todo fix these icons for resizable pages
+                                        direction="row">
+                                        <Grid2 item>
+                                            <NumbersIcon/>
+                                        </Grid2>
+
+                                        <Grid2 item>
+                                            <Typography sx={{
+                                                fontSize: '16px',
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: '#000000',
+                                                paddingLeft: '20px',
+                                            }}>
+                                                Applicants: 1
+                                            </Typography>
+                                        </Grid2>
+                                    </Grid2>
+
+
+                                </Box>
                             </Grid2>
                         </Grid2>
-                    </Paper>
-                </Paper>
-            </Grid2>
+
+
+                        {/* Description */}
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                padding: 3,
+                                borderRadius: 2,
+                                boxShadow: 3,
+                                marginTop: '20px',
+                                bgcolor: 'rgba(255, 255, 255, 1)',
+                                minHeight: '10vh',
+                            }}>
+
+
+                            <Typography sx={{
+                                fontSize: '25px',
+                                fontWeight: 'bold',
+                                fontFamily: 'Unna, sans-serif',
+                                color: '#000000',
+                                paddingLeft: '20px',
+                            }}>
+                                Job description
+                            </Typography>
+
+                            <Typography sx={{
+                                fontSize: '14px',
+                                fontFamily: 'Montserrat, sans-serif',
+                                color: '#000000',
+                                paddingLeft: '20px',
+                            }}>
+                                {internship.description}
+                            </Typography>
+
+                        </Box>
+
+                        {/* Required knowledge */}
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                padding: 3,
+                                borderRadius: 2,
+                                boxShadow: 3,
+                                marginTop: '20px',
+                                bgcolor: 'rgba(255, 255, 255, 1)',
+                                minHeight: '10vh',
+                            }}>
+
+
+                            <Typography sx={{
+                                fontSize: '25px',
+                                fontWeight: 'bold',
+                                fontFamily: 'Unna, sans-serif',
+                                color: '#000000',
+                                paddingLeft: '20px',
+                            }}>
+                                Required Knowledge
+                            </Typography>
+
+                            <Typography sx={{
+                                fontSize: '14px',
+                                fontFamily: 'Montserrat, sans-serif',
+                                color: '#000000',
+                                paddingLeft: '20px',
+                            }}>
+                                {internship.requiredKnowledge}
+                            </Typography>
+
+                        </Box>
+
+                        {/* Steps to apply */}
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                padding: 3,
+                                borderRadius: 2,
+                                boxShadow: 3,
+                                marginTop: '20px',
+                                bgcolor: 'rgba(255, 255, 255, 1)',
+                                minHeight: '10vh',
+                            }}>
+
+
+                            <Typography sx={{
+                                fontSize: '25px',
+                                fontWeight: 'bold',
+                                fontFamily: 'Unna, sans-serif',
+                                color: '#000000',
+                                paddingLeft: '20px',
+                            }}>
+                                Steps to apply
+                            </Typography>
+
+                            <Typography sx={{
+                                fontSize: '14px',
+                                fontFamily: 'Montserrat, sans-serif',
+                                color: '#000000',
+                                paddingLeft: '20px',
+                            }}>
+                                {internship.stepsToApply}
+                            </Typography>
+
+                        </Box>
+
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            style={{marginTop: '20px'}}
+                            onClick={handleApply}
+                            disabled={!showButton || hasApplied}
+                            sx={{
+                                marginTop: '20px',
+                                bgcolor: '#165A8B',
+                                '&:hover': {bgcolor: '#6883ad'},
+                            }}
+                        >
+                            {hasApplied ? "Applied" : "Apply"}
+                        </Button>
+
+
+                    </Container>
+                </Container>
+            </Box>
+
         </>
     )
 }

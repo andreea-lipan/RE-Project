@@ -75,7 +75,8 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    public Internship getInternshipById(Long id) {
-        return internshipRepository.findById(id).orElseThrow(() -> new RepoException("Internship not found"));
+    public InternshipDTO getInternshipById(Long id) {
+        Internship internship = internshipRepository.findById(id).orElseThrow(() -> new RepoException("Internship not found"));
+        return new InternshipDTO(internship);
     }
 }

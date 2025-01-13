@@ -20,7 +20,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public List<Application> getApplicationsByStudentId(Long student_id) {
-        return applicationRepository.findByStudentId(student_id);
+        return applicationRepository.findApplicationsByStudentId(student_id);
     }
 
     @Override

@@ -22,13 +22,13 @@ public class InternshipServiceImpl implements InternshipService {
             Internship internship = new Internship("Internship" + i);
             internship.setSalary(String.valueOf(1<<i));
             internship.setLength(String.valueOf(i));
-            if(i%3==0)internship.setWorktype("Remote");
-            else if(i%2==0)internship.setWorktype("Hybrid");
-            else internship.setWorktype("On Site");
+            if(i%3==0)internship.setWorkType("Remote");
+            else if(i%2==0)internship.setWorkType("Hybrid");
+            else internship.setWorkType("On Site");
             internship.setLocation("Orasul" + i);
             internship.setDescription("Description" + i);
-            internship.setSkills("Skills" + i);
-            internship.setSteps("Steps" + i);
+            internship.setRequiredKnowledge("Skills" + i);
+            internship.setStepsToApply("Steps" + i);
             internshipRepository.save(internship);
         }
     }

@@ -1,15 +1,13 @@
 package org.example.backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "applications")
 public class Application {
@@ -18,7 +16,7 @@ public class Application {
     @Column(name = "application_id")
     private Long id;
     @Column(name = "studentId")
-    private Long student_id;
+    private Long studentId;
     @Column(name = "internshipId")
     private Long internship_id;
 }

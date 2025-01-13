@@ -1,7 +1,10 @@
 package org.example.backend.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 
@@ -24,7 +27,7 @@ public class Internship {
     private String length;
 
     @Column(name = "worktype")
-    private String worktype;
+    private String workType;
 
     @Column(name = "deadline")
     private Date deadline;
@@ -35,11 +38,11 @@ public class Internship {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "steps")
-    private String steps;
+    @Column(name = "stepstoapply")
+    private String stepsToApply;
 
-    @Column(name = "skills")
-    private String skills;
+    @Column(name = "requiredknowledge")
+    private String requiredKnowledge;
 
     @Column(name = "salary")
     private String salary;
@@ -50,15 +53,15 @@ public class Internship {
         this.name = name;
     }
 
-    public Internship(String name, String length, String worktype, Date deadline, String location, String description, String steps, String skills, String salary) {
+    public Internship(String name, String length, String workType, Date deadline, String location, String description, String stepsToApply, String requiredKnowledge, String salary) {
         this.name = name;
         this.length = length;
-        this.worktype = worktype;
+        this.workType = workType;
         this.deadline = deadline;
         this.location = location;
         this.description = description;
-        this.steps = steps;
-        this.skills = skills;
+        this.stepsToApply = stepsToApply;
+        this.requiredKnowledge = requiredKnowledge;
         this.salary = salary;
     }
 

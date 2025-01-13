@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-    CardContent,
-    Typography,
-    Card,
-    CardHeader,
-    Avatar,
-    IconButton,
-    Grid2,
-    CardMedia,
-    CardActionArea
-} from "@mui/material";
+import {Avatar, Card, CardActionArea, CardContent, Grid2, Typography} from "@mui/material";
 import TimerIcon from '@mui/icons-material/Timer';
 import PaidIcon from '@mui/icons-material/Paid';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
@@ -60,7 +50,7 @@ export const InternshipCard = ({internship}) => {
                         </Grid2>
                         <Grid2 size={11}>
                             <Typography variant="body1">
-                                {description}
+                                {internship.description}
                             </Typography>
                         </Grid2>
                     </Grid2>
@@ -74,7 +64,6 @@ export const InternshipCard = ({internship}) => {
                         <Grid2 size={1}>
                             {internship.length}
                         </Grid2>
-                        <Grid2 size={1}/>
 
                         <Grid2 size={1}/>
                         <Grid2 size={1}>
@@ -83,7 +72,14 @@ export const InternshipCard = ({internship}) => {
                         <Grid2 size={1}>
                             {internship.location}
                         </Grid2>
+
                         <Grid2 size={1}/>
+                        <Grid2 size={1}>
+                            <BusinessCenterIcon/>
+                        </Grid2>
+                        <Grid2 size={1}>
+                            {internship.workType}
+                        </Grid2>
 
                         <Grid2 size={1}/>
                         <Grid2 size={1}>
@@ -92,7 +88,6 @@ export const InternshipCard = ({internship}) => {
                         <Grid2 size={1}>
                             {internship.salary}
                         </Grid2>
-                        <Grid2 size={1}/>
 
                     </Grid2>
                 </CardContent>

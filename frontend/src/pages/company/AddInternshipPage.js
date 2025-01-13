@@ -1,17 +1,9 @@
-import React, { useState } from "react";
-import {
-    Grid2,
-    Paper,
-    Box,
-    TextField,
-    Button,
-    MenuItem,
-    Typography,
-    TextareaAutosize,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, {useState} from "react";
+import {Box, Button, Grid2, MenuItem, Paper, TextareaAutosize, TextField, Typography,} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 import {CompanyNavbar} from "./CompanyNavbar";
+import internshipService from "../../APIs/InternshipService";
+import {COMPANY_DASHBOARD} from "../../utils/URLconstants";
 
 export const AddInternshipPage = () => {
     const [internshipDetails, setInternshipDetails] = useState({
@@ -29,7 +21,7 @@ export const AddInternshipPage = () => {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setInternshipDetails((prevDetails) => ({
             ...prevDetails,
             [name]: value,
@@ -42,7 +34,7 @@ export const AddInternshipPage = () => {
     };
 
     const handleSubmit = async () => {
-        const { deadline } = internshipDetails;
+        const {deadline} = internshipDetails;
 
         // Validate date format
         if (!validateDate(deadline)) {
@@ -60,19 +52,23 @@ export const AddInternshipPage = () => {
         }
 
         try {
-            const payload = {
+            const internship = {
                 ...internshipDetails,
                 deadline: formattedDate.toISOString(), // Convert to ISO format if the API expects it
             };
 
-            const response = await axios.post("http://localhost:8080", payload);
+            internshipService.addInternship(internship).then((response) => {
+                if (response.status === 200 || response.status === 201) {
+                    alert("Internship added successfully!");
+                    navigate(COMPANY_DASHBOARD);
+                } else {
+                    alert("Failed to add internship. Please try again.");
+                }
+            }).catch((error) => {
+                console.error("Error adding internship:", error);
+            });
 
-            if (response.status === 200 || response.status === 201) {
-                alert("Internship added successfully!");
-                navigate("/internships"); // Navigate to internships page after successful submission
-            } else {
-                alert("Failed to add internship. Please try again.");
-            }
+
         } catch (error) {
             console.error("Error adding internship:", error);
             alert("An error occurred while adding the internship.");
@@ -114,7 +110,7 @@ export const AddInternshipPage = () => {
                         borderRadius: "10px",
                     }}
                 >
-                    <Typography variant="h5" sx={{ color: "#ffffff", marginBottom: "20px" }}>
+                    <Typography variant="h5" sx={{color: "#ffffff", marginBottom: "20px"}}>
                         Add Internship:
                     </Typography>
 
@@ -234,7 +230,7 @@ export const AddInternshipPage = () => {
                     />
 
                     {/* Add Button */}
-                    <Box sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+                    <Box sx={{display: "flex", justifyContent: "center", marginTop: "20px"}}>
                         <Button variant="contained" color="primary" onClick={handleSubmit}>
                             Add
                         </Button>

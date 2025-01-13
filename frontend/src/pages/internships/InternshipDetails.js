@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
 import internshipService from "../../APIs/InternshipService";
-import { Avatar, Grid2, Paper, Typography } from "@mui/material";
-import { StudentNavbar } from "../students/StudentNavbar";
+import {Avatar, Grid2, Paper, Typography} from "@mui/material";
+import {StudentNavbar} from "../students/StudentNavbar";
 import Button from "@mui/material/Button";
 import Storage from "../../utils/Storage";
-import { CompanyNavbar } from "../company/CompanyNavbar";
+import {CompanyNavbar} from "../company/CompanyNavbar";
 
 const LocationLengthWorkMode = ({ internship }) => {
     return (
@@ -41,7 +41,7 @@ const LocationLengthWorkMode = ({ internship }) => {
             </Grid2>
             <Grid2 size={4}>
                 <Typography variant="h6" sx={{ fontFamily: 'Unna, sans-serif' }}>
-                    {internship.worktype}
+                    {internship.workType}
                 </Typography>
             </Grid2>
             <Grid2 size={4} />
@@ -54,6 +54,8 @@ export const InternshipDetails = () => {
     const showButton = Storage.getUserRole() === "STUDENT";
     const [internship, setInternship] = useState({});
     const [hasApplied, setHasApplied] = useState(false);
+
+    const shortestDesc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac"
 
     useEffect(() => {
         loadInternship();
@@ -121,7 +123,72 @@ export const InternshipDetails = () => {
                                     {internship.description}
                                 </Typography>
                             </Grid2>
-                            {/* Additional details */}
+                            <Grid2 size={4} sx={{marginTop: "30px"}}>
+                                <Typography variant="h4">
+                                    Required Knowledge
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={8}/>
+                            <Grid2 size={12} sx={{marginTop: "15px"}}>
+                                <Typography variant="body1">
+                                    {internship.requiredKnowledge}
+                                </Typography>
+                            </Grid2>
+
+                            <Grid2 size={4} sx={{marginTop: "30px"}}>
+                                <Typography variant="h4">
+                                    Steps to apply
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={8}/>
+                            <Grid2 size={12} sx={{marginTop: "15px"}}>
+                                <Typography variant="body1">
+                                    {internship.stepsToApply}
+                                </Typography>
+                            </Grid2>
+
+                            <Grid2 size={4} sx={{marginTop: "15px"}}>
+                                <Typography variant="h4">
+                                    Salary Information
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={8}/>
+                            <Grid2 size={5} sx={{marginTop: "15px"}}>
+                                <Typography variant="body1">
+                                    {internship.salary}
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={7}/>
+
+                            <Grid2 size={4} sx={{marginTop: "15px"}}>
+                                <Typography variant="h4">
+                                    Number of current applicants
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={8}/>
+                            <Grid2 size={5} sx={{marginTop: "15px"}}>
+                                <Typography variant="body1">
+                                    0
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={7}/>
+
+                            <Grid2 size={4} sx={{marginTop: "15px"}}>
+                                <Typography variant="h4">
+                                    Contact
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={8}/>
+                            <Grid2 size={5} sx={{marginTop: "15px"}}>
+                                <Typography variant="body1">
+                                    {shortestDesc}
+                                </Typography>
+                                <Typography variant="body1">
+                                    {shortestDesc}
+                                </Typography>
+                            </Grid2>
+                            <Grid2 size={7}/>
+
                             <Grid2 size={12} sx={{ margin: "15px" }}>
                                 <Button
                                     variant="contained"

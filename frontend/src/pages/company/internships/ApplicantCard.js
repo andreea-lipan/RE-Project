@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 
 export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
 
-
     const isPending = applicant.status === 'Pending';
 
     const handleSeeApplication = (event) => {
@@ -19,7 +18,7 @@ export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
 
     const handleDeny = (event) => {
         event.stopPropagation();
-        updateApplicantStatus(applicant,"Denied");
+        updateApplicantStatus(applicant,"Rejected");
     }
 
     return(
@@ -36,7 +35,7 @@ export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
                     <Grid2 container direction="row" justifyContent={"flex-start"} alignItems={"center"}>
                         <Grid2 size={8}>
                             <Typography variant="h5" sx={{fontFamily: 'Unna, sans-serif'}}>
-                                {applicant.name}
+                                {applicant.studentName}
                             </Typography>
                         </Grid2>
 

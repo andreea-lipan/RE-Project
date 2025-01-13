@@ -9,6 +9,13 @@ export const INTERNSHIPS_ENDPOINTS = {
     ADD_INTERNSHIP: `${BASE_URL}/internships`
 }
 
+export const APPLICATIONS_ENDPOINTS = {
+    APPLICATIONS: `${BASE_URL}/applications`,
+    APPLICATIONS_BY_STUDENT: (id) => `${BASE_URL}/applications?studentId=${id}`,
+    APPLICATIONS_BY_INTERNSHIP: (id) => `${BASE_URL}/applications?internshipId=${id}`,
+    APPLICATION_BY_ID: (id) => `${BASE_URL}/applications/${id}`
+}
+
 export const AUTH_ENDPOINTS = {
     LOGIN: `${BASE_URL}/auth/login`,
     COMPANY_SIGNUP: `${BASE_URL}/auth/company-signup`

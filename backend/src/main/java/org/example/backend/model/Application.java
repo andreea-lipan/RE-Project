@@ -3,6 +3,8 @@ package org.example.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Setter
 @Getter
 @Data
@@ -15,8 +17,22 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "application_id")
     private Long id;
-    @Column(name = "studentId")
-    private Long studentId;
-    @Column(name = "internshipId")
-    private Long internship_id;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus status;
+
+    @Column(name = "application_date")
+    private LocalDate applicationDate;
+
+    @Column(name = "cv")
+    private byte[] sentCV;
+
+    @ManyToOne
+    @JoinColumn(name = "internship_id", referencedColumnName = "internship_id")
+    private Internship internship;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "user_id")
+    private Student student;
 }

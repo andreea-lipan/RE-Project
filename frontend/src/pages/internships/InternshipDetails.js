@@ -15,6 +15,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import {COMPANY_PAGE} from "../../utils/URLconstants";
+import applicationService from "../../APIs/ApplicationService";
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -44,31 +45,15 @@ export const InternshipDetails = () => {
             .catch(err => console.log(err));
     }
 
-    const handleApply = async () => {
-        const studentId = Storage.getUserId(); // Retrieve the current student's ID
-        const payload = {
-            application: {
-                studentId: studentId,
-                internshipId: id,
-            }
-        };
-
-        try {
-            const response = await fetch('http://localhost:8080/applications', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload),
-            });
-
-            if (response.ok) {
+    const handleApply =  () => {
+        applicationService.addApplication(id).then( response => {
+            if (response.status === 200) {
                 setHasApplied(true);
                 console.log("Application successful!");
             } else {
                 console.error("Failed to apply:", response.status);
             }
-        } catch (err) {
-            console.error("Error while applying:", err);
-        }
+        }).catch(err => console.log(err));
     };
 
     const navigate = useNavigate();

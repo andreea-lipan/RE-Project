@@ -175,7 +175,7 @@ export const InternshipDetails = () => {
                     <Container sx={{
                         padding: '20px',
                         bgcolor: 'rgba(219, 219, 219, 0.75)',
-                        marginTop: '20px',
+                        marginTop: '60px',
                         borderRadius: 2,
 
                     }}>
@@ -257,7 +257,7 @@ export const InternshipDetails = () => {
                                                 color: '#000000',
                                                 paddingLeft: '20px',
                                             }}>
-                                                Salary: {internship.salary} €
+                                                Salary: {internship.salary} €/hour
                                             </Typography>
                                         </Grid2>
                                     </Grid2>

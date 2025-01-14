@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.example.backend.model.Internship;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +22,6 @@ public class InternshipDTO {
     private String stepsToApply;
     private String requiredKnowledge;
     private String salary;
-
     private Long companyId;
 
     public InternshipDTO(Internship internship) {

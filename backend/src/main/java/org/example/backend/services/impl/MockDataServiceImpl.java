@@ -4,8 +4,9 @@ import org.example.backend.model.Specialization;
 import org.example.backend.services.MockDataService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 @Service
@@ -264,7 +265,9 @@ public class MockDataServiceImpl implements MockDataService {
         Random random = new Random();
         int daysToAdd = random.nextInt(90) + 1; // Random number of days within 3 months
         calendar.add(Calendar.DAY_OF_YEAR, daysToAdd);
-        return calendar.getTime();
+
+        // Convert java.util.Date to java.sql.Date
+        return new Date(calendar.getTimeInMillis());
     }
 
     private static final String[] LOCATIONS = {
@@ -335,8 +338,7 @@ public class MockDataServiceImpl implements MockDataService {
 
 
     private static final String[] SALARIES = {
-            "$15/hour", "$20/hour", "$25/hour", "$30/hour", "$1000/month",
-            "$1500/month", "$2000/month", "Unpaid"
+            "15", "20", "25", "5", "0"
     };
 
     public String randomSalary() {

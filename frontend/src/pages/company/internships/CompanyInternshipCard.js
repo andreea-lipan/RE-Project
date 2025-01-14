@@ -25,9 +25,10 @@ export const CompanyInternshipCard = ({internship}) => {
         <Card
             style={{
                 margin: '8px',
-                backgroundColor: '#f5f5f5',
+                backgroundColor: '#D5D5D6',
                 textAlign: 'left',
                 maxWidth: '80vw',
+                borderRadius: '15px',
             }}
             elevation={2}
         >
@@ -36,16 +37,14 @@ export const CompanyInternshipCard = ({internship}) => {
             >
                 <CardContent >
 
-                    <Grid2 container direction="row" justifyContent={"center"} alignItems={"center"}>
-                        <Grid2 size={4}>
+                    <Grid2 container  direction="row" justifyContent={"space-between"} alignItems={"center"}>
+                        <Grid2 >
                             <Typography variant="h4" sx={{fontFamily: 'Unna, sans-serif'}}>
                                 {internship.name}
                             </Typography>
                         </Grid2>
 
-                        <Grid2 size={7}/>
-
-                        <Grid2 size={1}>
+                        <Grid2>
                             <CardActions >
                                 <IconButton aria-label="Edit" onClick={handleEditClick}>
                                     <EditIcon />
@@ -61,6 +60,7 @@ export const CompanyInternshipCard = ({internship}) => {
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <ApplicantsList internship={internship}/>
                     </Collapse>
+
                 </CardContent>
             </CardActionArea>
         </Card>

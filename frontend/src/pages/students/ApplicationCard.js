@@ -7,9 +7,10 @@ export const ApplicationCard = ({application}) => {
         <Card
             style={{
                 margin: '8px',
-                backgroundColor: '#f5f5f5',
+                backgroundColor: '#D5D5D6',
                 textAlign: 'left',
                 maxWidth: '80vw',
+                borderRadius: '15px',
             }}
             elevation={2}
         >

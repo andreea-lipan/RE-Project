@@ -45,6 +45,7 @@ public class InternshipServiceImpl implements InternshipService {
             internship.setDescription(mockDataService.randomDescription());
             internship.setRequiredKnowledge(mockDataService.randomRequiredKnowledge());
             internship.setStepsToApply(mockDataService.randomStepsToApply());
+            internship.setDeadline(mockDataService.randomDeadline());
             internshipRepository.save(internship);
         }
     }

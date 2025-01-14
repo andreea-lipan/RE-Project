@@ -96,12 +96,18 @@ export const InternshipsPage = () => {
                 );
             }
 
+            console.log(filters)
+            if (filters.length === '' && filters.salary === '' && filters.workType === '' && filters.location === '') {
+                filtered = internships;
+                console.log("reset")
+            }
+
             setFilteredInternships(filtered);
         };
 
     return (
         <Box sx={{
-            height: '100%',
+            minHeight: '100vh',
             paddingBottom: '20px',
             backgroundImage: `url(${background})`,
             backgroundRepeat: 'repeat'

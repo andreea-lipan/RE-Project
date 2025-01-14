@@ -32,6 +32,15 @@ export const InternshipCard = ({internship}) => {
         console.log("clicked" + internship.id)
         navigate(INTERNSHIP_DETAILS(internship.id))
     }
+
+    const showTruncatedText = (text) => {
+        const maxLength = 400;
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    }
+
     const randomColor = getRandomColor();
 
     return (
@@ -75,7 +84,7 @@ export const InternshipCard = ({internship}) => {
                         </Grid2>
                         <Grid2 size={11}>
                             <Typography variant="body1">
-                                {internship.description}
+                                {showTruncatedText(internship.description)}
                             </Typography>
                         </Grid2>
                     </Grid2>
@@ -87,7 +96,7 @@ export const InternshipCard = ({internship}) => {
                                 <TimerIcon sx={{marginBottom:'-3px'}}/>
                             </Grid2>
                             <Grid2 >
-                                {internship.length}
+                                {internship.length} weeks
                             </Grid2>
                         </Grid2>
 
@@ -114,7 +123,7 @@ export const InternshipCard = ({internship}) => {
                                 <PaidIcon sx={{marginBottom:'-3px'}}/>
                             </Grid2>
                             <Grid2 >
-                                {internship.salary}
+                                {internship.salary} €/hour
                             </Grid2>
                         </Grid2>
 

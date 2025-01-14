@@ -2,7 +2,8 @@ package org.example.backend.services;
 
 import org.example.backend.model.Specialization;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 public interface MockDataService {
     String randomCompanyName();

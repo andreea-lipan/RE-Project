@@ -1,17 +1,16 @@
 package org.example.backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
+
 
 @Setter
 @Getter
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "internships")
 public class Internship {
@@ -50,23 +49,5 @@ public class Internship {
     @ManyToOne
     @JoinColumn(name = "company_id", referencedColumnName = "user_id")
     private Company company;
-
-    public Internship() {}
-
-    public Internship(String name) {
-        this.name = name;
-    }
-
-    public Internship(String name, String length, String workType, Date deadline, String location, String description, String stepsToApply, String requiredKnowledge, String salary) {
-        this.name = name;
-        this.length = length;
-        this.workType = workType;
-        this.deadline = deadline;
-        this.location = location;
-        this.description = description;
-        this.stepsToApply = stepsToApply;
-        this.requiredKnowledge = requiredKnowledge;
-        this.salary = salary;
-    }
 
 }

@@ -21,6 +21,22 @@ const FilterDialog = ({ open, onClose, onApplyFilters }) => {
         onClose();
     };
 
+    const resetFilters = () => {
+        setFilters({
+            length: "",
+            salary: "",
+            workType: "",
+            location: "",
+        });
+        onApplyFilters({
+            length: "",
+            salary: "",
+            workType: "",
+            location: "",
+        });
+        onClose();
+    }
+
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Filter Internships</DialogTitle>
@@ -65,6 +81,7 @@ const FilterDialog = ({ open, onClose, onApplyFilters }) => {
                 />
             </DialogContent>
             <DialogActions>
+                <Button onClick={resetFilters}>Reset</Button>
                 <Button onClick={onClose}>Cancel</Button>
                 <Button onClick={applyFilters} variant="contained">
                     Apply Filters

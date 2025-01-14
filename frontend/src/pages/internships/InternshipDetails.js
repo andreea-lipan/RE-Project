@@ -17,6 +17,7 @@ import NumbersIcon from '@mui/icons-material/Numbers';
 import {COMPANY_PAGE} from "../../utils/URLconstants";
 import {StudentNavbar} from "../students/StudentNavbar";
 import applicationService from "../../APIs/ApplicationService";
+import {ApplyDialog} from "./ApplyDialog";
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -33,6 +34,7 @@ export const InternshipDetails = () => {
     const [internship, setInternship] = useState({});
     const [hasApplied, setHasApplied] = useState(false);
     const [concurrentApplicants, setConcurrentApplicants] = useState(0);
+    const [applyDialogOpen, setApplyDialogOpen] = useState(false);
 
     const randomColor = getRandomColor();
 
@@ -64,12 +66,17 @@ export const InternshipDetails = () => {
         applicationService.addApplication(id).then( response => {
             if (response.status === 200) {
                 setHasApplied(true);
+                setApplyDialogOpen(false);
                 console.log("Application successful!");
             } else {
                 console.error("Failed to apply:", response.status);
             }
         }).catch(err => console.log(err));
     };
+
+    const openDialog = () => {
+        setApplyDialogOpen(true);
+    }
 
     const navigate = useNavigate();
     const handleAvatarClick = () => {
@@ -458,7 +465,7 @@ export const InternshipDetails = () => {
                             color="primary"
                             fullWidth
                             style={{marginTop: '20px'}}
-                            onClick={handleApply}
+                            onClick={openDialog}
                             disabled={!showButton || hasApplied}
                             sx={{
                                 marginTop: '20px',
@@ -474,6 +481,11 @@ export const InternshipDetails = () => {
                 </Container>
             </Box>
 
+            <ApplyDialog
+                open={applyDialogOpen}
+                onClose={() => {setApplyDialogOpen(false)}}
+                onApply={handleApply}
+            />
         </>
     )
 }

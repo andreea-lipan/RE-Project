@@ -243,7 +243,7 @@ public class MockDataServiceImpl implements MockDataService {
         return INTERNSHIP_NAMES[random.nextInt(INTERNSHIP_NAMES.length)];
     }
     private static final String[] LENGTHS = {
-            "3 months", "6 months", "12 weeks", "8 weeks", "1 month", "4 months"
+            "3", "24", "12", "8", "6", "4"
     };
 
     public String randomLength() {

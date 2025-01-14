@@ -1,7 +1,19 @@
 import {Card, CardContent, Grid2, Typography} from "@mui/material";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 export const ApplicationCard = ({application}) => {
+
+    const [color, setColor] = useState('');
+
+    useEffect(() => {
+        if (application.status === 'Pending') {
+            setColor('#bf7400');
+        } else if (application.status === 'Accepted') {
+            setColor('#4CAF50');
+        } else {
+            setColor('#F44336');
+        }
+    }, []);
 
     return(
         <Card
@@ -26,7 +38,7 @@ export const ApplicationCard = ({application}) => {
                     <Grid2 size={6}/>
 
                     <Grid2 size={2}>
-                        <Typography variant="h4" sx={{fontFamily: 'Unna, sans-serif'}}>
+                        <Typography variant="h4" sx={{fontFamily: 'Unna, sans-serif',color:{color}}}>
                             {application.status}
                         </Typography>
                     </Grid2>

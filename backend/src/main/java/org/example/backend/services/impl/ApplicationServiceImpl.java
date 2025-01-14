@@ -10,12 +10,14 @@ import org.example.backend.persistence.ApplicationRepository;
 import org.example.backend.persistence.InternshipRepository;
 import org.example.backend.persistence.StudentRepository;
 import org.example.backend.services.ApplicationService;
+import org.example.backend.services.MockDataService;
 import org.example.backend.services.exceptions.RepoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +33,43 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Autowired
     private InternshipRepository internshipRepository;
+
+    @Autowired
+    private MockDataService mockDataService;
+
+    public List<Long> randomInternshipIds(){
+        List<Long> internshipIds = internshipRepository.findAll().stream().map(Internship::getId).toList();
+
+        // Create a copy of the original list to avoid modifying it
+        List<Long> shuffledList = new ArrayList<>(internshipIds);
+
+        // Shuffle the list randomly
+        Collections.shuffle(shuffledList);
+
+        // Return the first 5 IDs from the shuffled list
+        return shuffledList.subList(0, 7);
+    }
+
+    @Override
+    public void populate(){
+        List<Student> students = studentRepository.findAll();
+        students = students.subList(3, students.size()); // so that the first few students dont have a cv already uploaded
+
+        for (Student student : students) {
+            List<Long> internshipIds = randomInternshipIds();
+
+            for (Long internshipId : internshipIds) {
+                Application application = new Application();
+                Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new RepoException("Internship not found"));
+                application.setStudent(student);
+                application.setInternship(internship);
+                application.setStatus(ApplicationStatus.PENDING);
+                application.setSentCV(student.getCv());
+                application.setApplicationDate(LocalDate.now());
+                applicationRepository.save(application);
+            }
+        }
+    }
 
     @Override
     public void clear() {

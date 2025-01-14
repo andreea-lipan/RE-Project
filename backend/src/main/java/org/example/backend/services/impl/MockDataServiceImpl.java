@@ -5,7 +5,6 @@ import org.example.backend.services.MockDataService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -344,6 +343,18 @@ public class MockDataServiceImpl implements MockDataService {
     public String randomSalary() {
         Random random = new Random();
         return SALARIES[random.nextInt(SALARIES.length)];
+    }
+
+    // --------------------- APPLICATIONS ---------------------
+
+    public Long randomStudentId() {
+        Random random = new Random();
+        return random.nextLong();
+    }
+
+    public Long randomInternshipId() {
+        Random random = new Random();
+        return random.nextLong();
     }
 
 }

@@ -3,7 +3,6 @@ import {StudentNavbar} from "./StudentNavbar";
 import {ApplicationsList} from "./ApplicationsList";
 import {useEffect, useState} from "react";
 import applicationService from "../../APIs/ApplicationService";
-import {useState} from "react";
 import background from "../../assets/backgroundRepeatable2.jpg";
 import Box from "@mui/material/Box";
 

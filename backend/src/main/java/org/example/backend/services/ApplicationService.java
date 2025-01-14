@@ -18,4 +18,6 @@ public interface ApplicationService {
     List<ApplicationDTO> getApplicationsByInternshipId(Long internshipId);
 
     Long getConcurrentApplicants(Long internshipId);
+
+    void populate();
 }

@@ -28,6 +28,6 @@ public class MockDataController {
         studentService.populate();
         companyService.populate();
         internshipService.populate();
-//        applicationService.populate();
+        applicationService.populate();
     }
 }

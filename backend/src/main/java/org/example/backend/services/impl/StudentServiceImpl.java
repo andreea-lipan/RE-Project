@@ -1,6 +1,5 @@
 package org.example.backend.services.impl;
 
-import org.example.backend.model.Specialization;
 import org.example.backend.model.Student;
 import org.example.backend.model.UserRole;
 import org.example.backend.persistence.StudentRepository;
@@ -10,9 +9,11 @@ import org.example.backend.services.exceptions.RepoException;
 import org.example.backend.services.exceptions.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -23,6 +24,21 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private MockDataService mockDataService;
 
+    public byte[] mockCV() {
+        String fileName = "cvs/sample_cv.pdf";
+        byte[] cvBytes;
+
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
+            if (inputStream == null) {
+                throw new ServiceException("File not found in resources: " + fileName);
+            }
+            cvBytes = StreamUtils.copyToByteArray(inputStream);
+        } catch (IOException e) {
+            throw new ServiceException("Failed to read file: " + e.getMessage());
+        }
+        return cvBytes;
+    }
+
     public void populate(){
         for(int i = 1; i <= 10; i++){
             Student student = new Student();
@@ -31,7 +47,14 @@ public class StudentServiceImpl implements StudentService {
             student.setFirstname(mockDataService.randomFirstName());
             student.setLastname(mockDataService.randomLastName());
             student.setSpecialization(mockDataService.randomSpecialization());
-            student.setCv(null);
+
+            if (i > 3) {
+                try {
+                    student.setCv(mockCV());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             student.setRole(UserRole.STUDENT);
             studentRepository.save(student);
         }

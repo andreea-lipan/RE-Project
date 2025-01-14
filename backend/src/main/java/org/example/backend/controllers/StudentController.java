@@ -31,6 +31,15 @@ public class StudentController {
         }
     }
 
+    @GetMapping("{id}/cv")
+    public ResponseEntity<?> getCV(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(studentService.hasCV(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("populate")
     public ResponseEntity<?> populate() {
         try {

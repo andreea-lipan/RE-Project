@@ -23,6 +23,7 @@ public class InternshipDTO {
     private String requiredKnowledge;
     private String salary;
     private Long companyId;
+    private String companyName;
 
     public InternshipDTO(Internship internship) {
         this.id = internship.getId();
@@ -35,6 +36,7 @@ public class InternshipDTO {
         this.stepsToApply = internship.getStepsToApply();
         this.requiredKnowledge = internship.getRequiredKnowledge();
         this.salary = internship.getSalary();
+        this.companyName = internship.getCompany().getCompanyName();
         this.companyId = internship.getCompany().getId();
     }
 

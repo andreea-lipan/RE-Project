@@ -1,4 +1,4 @@
-import  {FileRequestInstance} from "./RequestInstance";
+import {FileRequestInstance, RequestInstance} from "./RequestInstance";
 import {STUDENT_ENDPOINTS} from "./Endpoints";
 import Storage from "../utils/Storage";
 
@@ -14,9 +14,15 @@ const getStudent = () => {
     return FileRequestInstance.get(STUDENT_ENDPOINTS.STUDENT_BY_ID(id))
 }
 
+const hasCV = () => {
+    const id = Storage.getUserId()
+    return RequestInstance.get(STUDENT_ENDPOINTS.HAS_CV(id))
+}
+
 const StudentService = {
     uploadCV,
-    getStudent
+    getStudent,
+    hasCV
 }
 
 export default StudentService

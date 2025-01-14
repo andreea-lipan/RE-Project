@@ -16,6 +16,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import {COMPANY_PAGE} from "../../utils/URLconstants";
 import {StudentNavbar} from "../students/StudentNavbar";
+import applicationService from "../../APIs/ApplicationService";
+import {ApplyDialog} from "./ApplyDialog";
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -31,11 +33,15 @@ export const InternshipDetails = () => {
     const showButton = Storage.getUserRole() === "STUDENT";
     const [internship, setInternship] = useState({});
     const [hasApplied, setHasApplied] = useState(false);
+    const [concurrentApplicants, setConcurrentApplicants] = useState(0);
+    const [applyDialogOpen, setApplyDialogOpen] = useState(false);
 
     const randomColor = getRandomColor();
 
     useEffect(() => {
         loadInternship();
+        loadConcurrentApplicants();
+        checkIfApplied()
     }, []);
 
     const loadInternship = () => {
@@ -44,33 +50,33 @@ export const InternshipDetails = () => {
             .then(data => setInternship(data))
             .catch(err => console.log(err));
     }
+    const loadConcurrentApplicants = () => {
+        applicationService.getConcurrentApplicants(id)
+            .then(response => response.data)
+            .then(data => setConcurrentApplicants(data))
+            .catch(err => console.log(err));
+    }
+    const checkIfApplied = () => {
+        applicationService.checkIfApplied(id)
+            .then(data => setHasApplied(data))
+            .catch(err => console.log(err));
+    }
 
-    const handleApply = async () => {
-        const studentId = Storage.getUserId(); // Retrieve the current student's ID
-        const payload = {
-            application: {
-                studentId: studentId,
-                internshipId: id,
-            }
-        };
-
-        try {
-            const response = await fetch('http://localhost:8080/applications', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload),
-            });
-
-            if (response.ok) {
+    const handleApply =  () => {
+        applicationService.addApplication(id).then( response => {
+            if (response.status === 200) {
                 setHasApplied(true);
+                setApplyDialogOpen(false);
                 console.log("Application successful!");
             } else {
                 console.error("Failed to apply:", response.status);
             }
-        } catch (err) {
-            console.error("Error while applying:", err);
-        }
+        }).catch(err => console.log(err));
     };
+
+    const openDialog = () => {
+        setApplyDialogOpen(true);
+    }
 
     const navigate = useNavigate();
     const handleAvatarClick = () => {
@@ -146,10 +152,10 @@ export const InternshipDetails = () => {
                                             sx={{
                                                 width: 50,
                                                 height: 50,
-                                                marginBottom: '-10px', //todo make company here
+                                                marginBottom: '-10px',
                                                 backgroundColor: randomColor
                                             }}>
-                                            {internship.name?.charAt(0).toUpperCase()}
+                                            {internship.companyName?.charAt(0).toUpperCase()}
                                         </Avatar>
                                     </IconButton>
                                 </Grid2>
@@ -335,7 +341,7 @@ export const InternshipDetails = () => {
                                                 color: '#000000',
                                                 paddingLeft: '20px',
                                             }}>
-                                                Applicants: 1
+                                                Applicants: {concurrentApplicants}
                                             </Typography>
                                         </Grid2>
                                     </Grid2>
@@ -459,7 +465,7 @@ export const InternshipDetails = () => {
                             color="primary"
                             fullWidth
                             style={{marginTop: '20px'}}
-                            onClick={handleApply}
+                            onClick={openDialog}
                             disabled={!showButton || hasApplied}
                             sx={{
                                 marginTop: '20px',
@@ -475,6 +481,11 @@ export const InternshipDetails = () => {
                 </Container>
             </Box>
 
+            <ApplyDialog
+                open={applyDialogOpen}
+                onClose={() => {setApplyDialogOpen(false)}}
+                onApply={handleApply}
+            />
         </>
     )
 }

@@ -64,7 +64,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudentById(Long id) {
-        return studentRepository.findById(id).orElseThrow(()->new RepoException("Student not found!"));
+        return studentRepository.findById(id).orElseThrow(() -> new RepoException("Student not found!"));
+    }
+
+    @Override
+    public Boolean hasCV(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RepoException("Student not found"));
+
+        return student.getCv() != null;
     }
 
 

@@ -1,17 +1,27 @@
 import {Grid2, Paper} from "@mui/material";
 import {StudentNavbar} from "./StudentNavbar";
 import {ApplicationsList} from "./ApplicationsList";
+import {useEffect, useState} from "react";
+import applicationService from "../../APIs/ApplicationService";
 import {useState} from "react";
 import background from "../../assets/backgroundRepeatable2.jpg";
 import Box from "@mui/material/Box";
 
 export const StudentApplicationsPage = () => {
 
-    const [applications, setApplications] = useState([
-        {title: "Application 1", status: "Pending"},
-        {title: "Application 2", status: "Accepted"},
-        {title: "Application 3", status: "Denied"},
-    ]);
+    const [applications, setApplications] = useState([]);
+
+    useEffect(() => {
+        loadApplications();
+    }, []);
+
+    const loadApplications = () => {
+        applicationService.getApplicationsByStudent().then(response => {
+            setApplications(response.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     return(
         <Box sx={{

@@ -19,7 +19,7 @@ export const ApplicationCard = ({application}) => {
                 <Grid2 container direction="row" justifyContent={"center"} alignItems={"center"}>
                     <Grid2 size={4}>
                         <Typography variant="h4" sx={{fontFamily: 'Unna, sans-serif'}}>
-                            {application.title}
+                            {application.internshipName}
                         </Typography>
                     </Grid2>
 

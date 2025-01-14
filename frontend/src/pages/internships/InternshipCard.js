@@ -79,7 +79,7 @@ export const InternshipCard = ({internship}) => {
                                     marginBottom: '-10px', //todo make company here
                                     backgroundColor: randomColor
                                 }}>
-                                {internship.name?.charAt(0).toUpperCase()}
+                                {internship.companyName?.charAt(0).toUpperCase()}
                             </Avatar>
                         </Grid2>
                         <Grid2 size={11}>

@@ -1,14 +1,20 @@
 import {Card, CardActions, CardContent, Grid2, Typography} from "@mui/material";
 import React from "react";
 import Button from "@mui/material/Button";
+import Backdrop from '@mui/material/Backdrop';
 
 export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
 
-
     const isPending = applicant.status === 'Pending';
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const handleSeeApplication = (event) => {
         event.stopPropagation();
+        setOpen(true);
+        console.log(applicant);
     }
 
     const handleAccept = (event) => {
@@ -19,8 +25,12 @@ export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
 
     const handleDeny = (event) => {
         event.stopPropagation();
-        updateApplicantStatus(applicant,"Denied");
+        updateApplicantStatus(applicant,"Rejected");
     }
+
+    const base64PDF = applicant.sentCV;
+    const pdfDataUrl = `data:application/pdf;base64,${base64PDF}`;
+
 
     return(
         <>
@@ -36,7 +46,7 @@ export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
                     <Grid2 container direction="row" justifyContent={"flex-start"} alignItems={"center"}>
                         <Grid2 size={8}>
                             <Typography variant="h5" sx={{fontFamily: 'Unna, sans-serif'}}>
-                                {applicant.name}
+                                {applicant.studentName}
                             </Typography>
                         </Grid2>
 
@@ -95,6 +105,20 @@ export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
                     </Grid2>
                 </CardContent>
             </Card>
+
+            <Backdrop
+                sx={(theme) => ({color: '#fff', zIndex: theme.zIndex.drawer + 1})}
+                open={open}
+                onClick={handleClose}
+            >
+                <iframe
+                    src={pdfDataUrl}
+                    title="PDF Viewer"
+                    width="80%"
+                    height="90%"
+                />
+
+            </Backdrop>
         </>
     )
 }

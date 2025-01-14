@@ -251,7 +251,7 @@ public class MockDataServiceImpl implements MockDataService {
         return LENGTHS[random.nextInt(LENGTHS.length)];
     }
     private static final String[] WORK_TYPES = {
-            "Remote", "On-site", "Hybrid"
+            "Remote", "On-Site", "Hybrid"
     };
 
     public String randomWorkType() {

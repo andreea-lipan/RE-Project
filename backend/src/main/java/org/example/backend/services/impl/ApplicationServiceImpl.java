@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,21 +50,40 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public void populate(){
         List<Student> students = studentRepository.findAll();
-        students = students.subList(3, students.size()); // so that the first few students dont have a cv already uploaded
+//        students = students.subList(2, students.size()); // so that the first few students dont have a cv already uploaded
+
+        // studentu care aplica la toate
+        List<Internship> internships = internshipRepository.findAll();
+//        Student studentAplicat = students.stream().filter(x->x.getId()==2).findFirst().get();
+
 
         for (Student student : students) {
-            List<Long> internshipIds = randomInternshipIds();
-
-            for (Long internshipId : internshipIds) {
-                Application application = new Application();
-                Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new RepoException("Internship not found"));
-                application.setStudent(student);
-                application.setInternship(internship);
-                application.setStatus(ApplicationStatus.PENDING);
-                application.setSentCV(student.getCv());
-                application.setApplicationDate(LocalDate.now());
-                applicationRepository.save(application);
+            if (!Objects.equals(student.getEmail(), "student1@facultate.ro") && !Objects.equals(student.getEmail(), "student2@facultate.ro")) {
+                // aplica partial
+                List<Long> internshipIds = randomInternshipIds();
+                for (Long internshipId : internshipIds) {
+                    Application application = new Application();
+                    Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new RepoException("Internship not found"));
+                    application.setStudent(student);
+                    application.setInternship(internship);
+                    application.setStatus(ApplicationStatus.PENDING);
+                    application.setSentCV(student.getCv());
+                    application.setApplicationDate(LocalDate.now());
+                    applicationRepository.save(application);
+                }
+            } else if (student.getEmail().equals("student2@facultate.ro")) {
+                // aplica la toate
+                for (Internship internship : internships) {
+                    Application application = new Application();
+                    application.setStudent(student);
+                    application.setInternship(internship);
+                    application.setStatus(ApplicationStatus.PENDING);
+                    application.setSentCV(student.getCv());
+                    application.setApplicationDate(LocalDate.now());
+                    applicationRepository.save(application);
+                }
             }
+
         }
     }
 

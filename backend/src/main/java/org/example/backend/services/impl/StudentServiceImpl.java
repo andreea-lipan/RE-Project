@@ -48,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
             student.setLastname(mockDataService.randomLastName());
             student.setSpecialization(mockDataService.randomSpecialization());
 
-            if (i > 3) {
+            if (i > 1) {
                 try {
                     student.setCv(mockCV());
                 } catch (Exception e) {

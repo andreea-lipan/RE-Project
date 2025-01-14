@@ -7,7 +7,8 @@ export const ApplicantCard = ({applicant, updateApplicantStatus}) => {
 
     const isPending = applicant.status === 'Pending';
     const [open, setOpen] = React.useState(false);
-    const handleClose = () => {
+    const handleClose = (event) => {
+        event.stopPropagation();
         setOpen(false);
     };
 

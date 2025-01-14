@@ -1,12 +1,27 @@
 import {Card, CardActionArea, CardActions, CardContent, Collapse, Grid2, IconButton, Typography} from "@mui/material";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import {ApplicantsList} from "./ApplicantsList";
+import applicationService from "../../../APIs/ApplicationService";
 
 export const CompanyInternshipCard = ({internship}) => {
 
     const [expanded, setExpanded] = useState(false);
+
+    const [applicants, setApplicants] = useState([]);
+
+    useEffect(() => {
+        loadApplicants();
+    },[]);
+
+    const loadApplicants = () => {
+        applicationService.getApplicationsByInternship(internship.id).then(response => {
+            setApplicants(response.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     const handleActionClick = () => {
         setExpanded(!expanded)
@@ -58,7 +73,7 @@ export const CompanyInternshipCard = ({internship}) => {
                     </Grid2>
 
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
-                        <ApplicantsList internship={internship}/>
+                        <ApplicantsList applicants={applicants} setApplicants={setApplicants}/>
                     </Collapse>
 
                 </CardContent>

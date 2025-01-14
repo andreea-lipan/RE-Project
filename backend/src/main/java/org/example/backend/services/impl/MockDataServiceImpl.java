@@ -1,6 +1,6 @@
 package org.example.backend.services.impl;
 
-import org.example.backend.model.Specialization;
+import org.example.backend.model.enums.Specialization;
 import org.example.backend.services.MockDataService;
 import org.springframework.stereotype.Service;
 

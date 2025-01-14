@@ -1,11 +1,10 @@
 package org.example.backend.model.DTOs;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.backend.model.Company;
-import org.example.backend.model.UserRole;
+import org.example.backend.model.enums.UserRole;
 
 @Data
 @AllArgsConstructor

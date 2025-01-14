@@ -1,6 +1,6 @@
 package org.example.backend.services;
 
-import org.example.backend.model.Specialization;
+import org.example.backend.model.enums.Specialization;
 
 import java.sql.Date;
 

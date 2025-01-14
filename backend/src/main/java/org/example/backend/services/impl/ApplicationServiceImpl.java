@@ -1,11 +1,11 @@
 package org.example.backend.services.impl;
 
 import org.example.backend.model.Application;
-import org.example.backend.model.ApplicationStatus;
 import org.example.backend.model.DTOs.ApplicationDTO;
 import org.example.backend.model.DTOs.ApplicationUpdateRequest;
 import org.example.backend.model.Internship;
 import org.example.backend.model.Student;
+import org.example.backend.model.enums.ApplicationStatus;
 import org.example.backend.persistence.ApplicationRepository;
 import org.example.backend.persistence.InternshipRepository;
 import org.example.backend.persistence.StudentRepository;

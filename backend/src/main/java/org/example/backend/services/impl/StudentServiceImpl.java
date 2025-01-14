@@ -1,7 +1,7 @@
 package org.example.backend.services.impl;
 
 import org.example.backend.model.Student;
-import org.example.backend.model.UserRole;
+import org.example.backend.model.enums.UserRole;
 import org.example.backend.persistence.StudentRepository;
 import org.example.backend.services.MockDataService;
 import org.example.backend.services.StudentService;

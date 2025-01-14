@@ -1,7 +1,7 @@
 package org.example.backend.services.impl;
 
 import org.example.backend.model.Company;
-import org.example.backend.model.UserRole;
+import org.example.backend.model.enums.UserRole;
 import org.example.backend.persistence.CompanyRepository;
 import org.example.backend.services.CompanyService;
 import org.example.backend.services.MockDataService;

@@ -1,4 +1,4 @@
-package org.example.backend.model;
+package org.example.backend.model.enums;
 
 public enum Specialization {
     INFO_RO,

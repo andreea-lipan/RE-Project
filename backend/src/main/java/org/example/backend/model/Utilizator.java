@@ -2,8 +2,11 @@
 package org.example.backend.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.example.backend.model.enums.UserRole;
 
 @Data
 @NoArgsConstructor

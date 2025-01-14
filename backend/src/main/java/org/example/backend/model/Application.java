@@ -2,6 +2,7 @@ package org.example.backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.backend.model.enums.ApplicationStatus;
 
 import java.time.LocalDate;
 
